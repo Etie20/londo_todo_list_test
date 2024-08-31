@@ -4,16 +4,16 @@ import {HlmInputDirective} from "../../../shared/libs/ui/ui-input-helm/src";
 import {HlmSpinnerComponent} from "../../../shared/libs/ui/ui-spinner-helm/src";
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   standalone: true,
   imports: [
     HlmButtonDirective,
     HlmInputDirective,
-    HlmSpinnerComponent,
+    HlmSpinnerComponent
   ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.css'
 })
-export class LoginComponent {
-  loading = signal(false);
+export class RegisterComponent {
+  loading = signal(false)
 }
