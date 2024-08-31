@@ -1,1 +1,37 @@
-<p>register works!</p>
+<div class="flex justify-between items-center w-screen h-screen">
+  <div class="flex items-center justify-center w-1/2 h-full border bg-secondary">
+    <img src="assets/logo/logo_preview.svg" class="w-96" alt="logo_preview">
+  </div>
+  <div class="flex justify-center items-center w-1/2 h-full">
+    <div class="flex flex-col justify-center items-center w-80 h-96 gap-5">
+      <div class="grid text-center gap-2 justify-items-center">
+        <div class="absolute top-10 right-10">
+          <a href="/login"><button hlmBtn class="font-semibold" variant="ghost">Login</button></a>
+        </div>
+        <img src="assets/logo/logo.svg" class="w-14" alt="logo">
+        <p class="text-primary font-semibold text-2xl">Create an account</p>
+        <p class="text-sm">Enter your email below to create your account</p>
+      </div>
+      <div class="grid w-full gap-2">
+        <input class="w-full" hlmInput placeholder='name@example.com' type='email' autocomplete="true"/>
+        <input class="w-full" hlmInput placeholder='********' type='password' />
+      </div>
+      <button hlmBtn class="w-full font-semibold" [disabled]="loading()">
+        @if (loading()){
+          <hlm-spinner class="w-5 h-5"/>
+        } @else {
+          <p>Sign In with Email</p>
+        }
+      </button>
+      <div class="flex w-full items-center justify-between">
+        <hr class="w-1/4">
+        <p class="text-xs">OR CONTINUE WITH</p>
+        <hr class="w-1/4">
+      </div>
+      <button hlmBtn class="flex justify-center items-center w-full font-semibold gap-2" variant="outline">
+        <img src="assets/logo/google.svg" class="w-4" alt="google logo">
+        <p>Google</p>
+      </button>
+    </div>
+  </div>
+</div>
