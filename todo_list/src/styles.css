@@ -1,0 +1,54 @@
+@import '@angular/cdk/overlay-prebuilt.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+--font-sans: ''
+}
+
+
+:root  {
+  --background: 12 100% 95%;
+  --foreground: 12 5% 0%;
+  --card: 12 50% 90%;
+  --card-foreground: 12 5% 10%;
+  --popover: 12 100% 95%;
+  --popover-foreground: 12 100% 0%;
+  --primary: 12 100% 53.9%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 12 30% 70%;
+  --secondary-foreground: 0 0% 0%;
+  --muted: -26 30% 85%;
+  --muted-foreground: 12 5% 35%;
+  --accent: -26 30% 80%;
+  --accent-foreground: 12 5% 10%;
+  --destructive: 0 100% 30%;
+  --destructive-foreground: 12 5% 90%;
+  --border: 12 30% 50%;
+  --input: 12 30% 18%;
+  --ring: 12 100% 53.9%;
+  --radius: 0.5rem;
+}
+.dark  {
+  --background: 12 50% 5%;
+  --foreground: 12 5% 90%;
+  --card: 12 50% 0%;
+  --card-foreground: 12 5% 90%;
+  --popover: 12 50% 5%;
+  --popover-foreground: 12 5% 90%;
+  --primary: 12 100% 53.9%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 12 30% 10%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: -26 30% 15%;
+  --muted-foreground: 12 5% 60%;
+  --accent: -26 30% 15%;
+  --accent-foreground: 12 5% 90%;
+  --destructive: 0 100% 30%;
+  --destructive-foreground: 12 5% 90%;
+  --border: 12 30% 18%;
+  --input: 12 30% 18%;
+  --ring: 12 100% 53.9%;
+  --radius: 0.5rem;
+}

@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/server.ts"],"sourcesContent":["import App from '@/app';\r\nimport validateEnv from \"@utils/validateEnv\";\r\n\r\nvalidateEnv();\r\n\r\nconst app = new App();\r\n\r\napp.listen();\r\n\r\n"],"names":["App","validateEnv","app","listen"],"mappings":"AAAA,OAAOA,SAAS,QAAQ;AACxB,OAAOC,iBAAiB,qBAAqB;AAE7CA;AAEA,IAAMC,MAAM,IAAIF;AAEhBE,IAAIC,MAAM"}
