@@ -9,7 +9,13 @@
       <input class="w-full" hlmInput placeholder='name@example.com' type='email' autocomplete="true"/>
       <input class="w-full" hlmInput placeholder='********' type='password' />
     </div>
-    <button hlmBtn class="w-full font-semibold">Sign In with Email</button>
+    <button hlmBtn class="w-full font-semibold" [disabled]="loading()">
+      @if (loading()){
+        <hlm-spinner class="w-5 h-5"/>
+      } @else {
+        <p>Sign In with Email</p>
+      }
+    </button>
     <div class="flex w-full items-center justify-between">
       <hr class="w-1/4">
       <p class="text-xs">OR CONTINUE WITH</p>
