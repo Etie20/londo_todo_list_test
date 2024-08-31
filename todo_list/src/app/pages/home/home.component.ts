@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {HlmIconComponent} from "@spartan-ng/ui-icon-helm";
 import {provideIcons} from "@ng-icons/core";
-import {lucideSearch} from "@ng-icons/lucide";
+import {lucideSearch, lucideTornado} from "@ng-icons/lucide";
 import {HlmInputDirective} from "../../shared/libs/ui/ui-input-helm/src";
 import { BrnSelectImports } from '@spartan-ng/ui-select-brain';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
@@ -17,7 +17,7 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
-  providers: [provideIcons({lucideSearch})]
+  providers: [provideIcons({lucideSearch, lucideTornado})]
 })
 export class HomeComponent {
 }

@@ -4,6 +4,8 @@ import {LogoComponent} from "../../../shared/components/logo/logo.component";
 import {HlmIconComponent} from "@spartan-ng/ui-icon-helm";
 import {provideIcons} from '@ng-icons/core';
 import {lucideSettings} from '@ng-icons/lucide';
+import {TopBarComponent} from "../../../shared/components/top-bar/top-bar.component";
+import {SideBarComponent} from "../../../shared/components/side-bar/side-bar.component";
 
 @Component({
   selector: 'app-home-layout',
@@ -11,7 +13,9 @@ import {lucideSettings} from '@ng-icons/lucide';
   imports: [
     RouterOutlet,
     LogoComponent,
-    HlmIconComponent
+    HlmIconComponent,
+    TopBarComponent,
+    SideBarComponent
   ],
   templateUrl: './home-layout.component.html',
   styleUrl: './home-layout.component.css',

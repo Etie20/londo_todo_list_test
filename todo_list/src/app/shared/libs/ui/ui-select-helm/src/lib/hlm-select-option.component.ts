@@ -18,7 +18,7 @@ import type { ClassValue } from 'clsx';
 		<ng-content />
 		<span
 			[attr.dir]="_brnSelectOption.dir()"
-			class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center rtl:left-auto rtl:right-2"
+			class="absolute left-2 top-3 flex h-3.5 w-3.5 items-center justify-center rtl:left-auto rtl:right-2"
 			[attr.data-state]="this._brnSelectOption.checkedState()"
 		>
 			@if (this._brnSelectOption.selected()) {
