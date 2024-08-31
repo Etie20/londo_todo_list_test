@@ -1,0 +1,30 @@
+<div class="px-9 py-8">
+  <div class="flex justify-between items-center">
+    <div class="relative">
+      <input
+        hlmInput
+        placeholder='Search'
+        class="px-9 border-secondary"
+      />
+      <hlm-icon
+        class="absolute inset-0 left-3 top-3 w-[1.1rem] text-secondary"
+        name="lucideSearch"
+      />
+    </div>
+    <div class="flex gap-5 items-center">
+      <p class="text-sm font-light">Group by</p>
+      <brn-select class="inline-block" placeholder="Aucun">
+        <hlm-select-trigger>
+          <hlm-select-value />
+        </hlm-select-trigger>
+        <hlm-select-content class="w-56">
+          <hlm-option value="Aucun">Aucun</hlm-option>
+          <hlm-option value="Travail">Travail</hlm-option>
+          <hlm-option value="Personnel">Personnel</hlm-option>
+          <hlm-option value="Etudes">Études</hlm-option>
+        </hlm-select-content>
+      </brn-select>
+
+    </div>
+  </div>
+</div>
