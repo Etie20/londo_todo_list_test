@@ -52,3 +52,7 @@
   --ring: 12 100% 53.9%;
   --radius: 0.5rem;
 }
+
+body {
+  font-family: "Inter Variable", "sans-serif";
+}

@@ -22,6 +22,7 @@
     "@angular/platform-server": "^18.2.2",
     "@angular/router": "^18.2.2",
     "@angular/ssr": "^18.2.2",
+    "@fontsource-variable/inter": "^5.0.20",
     "@spartan-ng/ui-core": "0.0.1-alpha.353",
     "class-variance-authority": "^0.6.0",
     "clsx": "^1.2.1",
