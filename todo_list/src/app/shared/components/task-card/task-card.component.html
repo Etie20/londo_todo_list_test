@@ -1,0 +1,9 @@
+<div class="w-full h-20 rounded-md border-secondary border bg-white p-3 cursor-pointer overflow-hidden" cdkDrag>
+  <p class="text-sm font-medium" [ngClass]="{'line-through':state === 'DONE'}">{{ task.name }}</p>
+  <div class="flex justify-between items-center mt-5">
+    <div hlmBadge variant="outline">{{ task.category }}</div>
+    @if (state === 'DONE'){
+      <hlm-icon name="lucideCheck" size="sm" class="text-green-800"/>
+    }
+  </div>
+</div>

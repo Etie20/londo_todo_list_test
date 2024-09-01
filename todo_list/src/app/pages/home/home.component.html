@@ -31,12 +31,8 @@
       />
     </div>
   </div>
-  <div class="flex gap-2">
-    <div class="px-3 py-4 text-xs w-72 rounded-sm bg-popover">
-      <p class="font-semibold">TODO 1</p>
-    </div>
-    <div class="px-3 py-4 text-xs bg-popover w-72 rounded-sm">
-      <p class="font-semibold">DONE 1</p>
-    </div>
+  <div class="flex flex-col lg:flex-row gap-2" cdkDropListGroup>
+    <app-task-list title="TODO" [tasks]="todo" state="TODO"/>
+    <app-task-list title="DONE" [tasks]="done" state="DONE"/>
   </div>
 </div>
