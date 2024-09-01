@@ -5,6 +5,7 @@ import {lucideSearch, lucideTornado} from "@ng-icons/lucide";
 import {HlmInputDirective} from "../../shared/libs/ui/ui-input-helm/src";
 import { BrnSelectImports } from '@spartan-ng/ui-select-brain';
 import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
+import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-home',
@@ -13,11 +14,19 @@ import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
     HlmIconComponent,
     HlmInputDirective,
     BrnSelectImports,
-    HlmSelectImports
+    HlmSelectImports,
+    ReactiveFormsModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   providers: [provideIcons({lucideSearch, lucideTornado})]
 })
 export class HomeComponent {
+  categoryForm!: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.categoryForm = this.fb.group({
+      category: ['None']
+    })
+  }
 }

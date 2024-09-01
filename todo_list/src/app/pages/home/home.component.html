@@ -13,16 +13,19 @@
     </div>
     <div class="flex gap-2 items-center">
       <p class="text-sm font-light">Group by</p>
-      <brn-select class="inline-block">
-        <hlm-select-trigger class="w-32">
-          <hlm-select-value />
-        </hlm-select-trigger>
-        <hlm-select-content class="w-56">
-          <hlm-option value="Travail">Travail</hlm-option>
-          <hlm-option value="Personnel">Personnel</hlm-option>
-          <hlm-option value="Etudes">Études</hlm-option>
-        </hlm-select-content>
-      </brn-select>
+      <form [formGroup]="categoryForm">
+        <brn-select class="inline-block" formControlName="category">
+          <hlm-select-trigger class="w-32">
+            <hlm-select-value/>
+          </hlm-select-trigger>
+          <hlm-select-content class="w-56">
+            <hlm-option value="None">None</hlm-option>
+            <hlm-option value="Travail">Work</hlm-option>
+            <hlm-option value="Personnel">Personal</hlm-option>
+            <hlm-option value="Etudes">Study</hlm-option>
+          </hlm-select-content>
+        </brn-select>
+      </form>
       <hlm-icon
         name="lucideTornado"
       />
@@ -30,10 +33,10 @@
   </div>
   <div class="flex gap-2">
     <div class="px-3 py-4 text-xs w-72 rounded-sm bg-popover">
-      <p class="font-semibold">A FAIRE 1</p>
+      <p class="font-semibold">TODO 1</p>
     </div>
     <div class="px-3 py-4 text-xs bg-popover w-72 rounded-sm">
-      <p class="font-semibold">FINI 1</p>
+      <p class="font-semibold">DONE 1</p>
     </div>
   </div>
 </div>
