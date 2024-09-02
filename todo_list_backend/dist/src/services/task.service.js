@@ -154,114 +154,31 @@ function _ts_generator(thisArg, body) {
         };
     }
 }
-import express from 'express';
-import { NODE_ENV, PORT } from "@config";
-import { logger } from "@utils/logger";
-import { connect, set, disconnect } from 'mongoose';
-import { dbConnection } from '@databases';
-var App = /*#__PURE__*/ function() {
+import taskModel from "@models/task.model";
+var TaskService = /*#__PURE__*/ function() {
     "use strict";
-    function App(routes) {
-        _class_call_check(this, App);
-        _define_property(this, "app", void 0);
-        _define_property(this, "env", void 0);
-        _define_property(this, "port", void 0);
-        this.app = express();
-        this.env = NODE_ENV || 'development';
-        this.port = PORT || 3000;
-        this.connectToDatabase();
+    function TaskService() {
+        _class_call_check(this, TaskService);
+        _define_property(this, "task", taskModel);
     }
-    _create_class(App, [
+    _create_class(TaskService, [
         {
-            key: "listen",
-            value: function listen() {
-                var _this = this;
-                this.app.listen(this.port, function() {
-                    logger.info("=================================");
-                    logger.info("======= ENV: ".concat(_this.env, " ======="));
-                    logger.info("\uD83D\uDE80 App listening on the port ".concat(_this.port));
-                    logger.info("=================================");
-                });
-            }
-        },
-        {
-            key: "closeDatabaseConnection",
-            value: function closeDatabaseConnection() {
-                return _async_to_generator(function() {
-                    var error;
-                    return _ts_generator(this, function(_state) {
-                        switch(_state.label){
-                            case 0:
-                                _state.trys.push([
-                                    0,
-                                    2,
-                                    ,
-                                    3
-                                ]);
-                                return [
-                                    4,
-                                    disconnect()
-                                ];
-                            case 1:
-                                _state.sent();
-                                console.log('Disconnected from MongoDB');
-                                return [
-                                    3,
-                                    3
-                                ];
-                            case 2:
-                                error = _state.sent();
-                                console.error('Error closing database connection:', error);
-                                return [
-                                    3,
-                                    3
-                                ];
-                            case 3:
-                                return [
-                                    2
-                                ];
-                        }
-                    });
-                })();
-            }
-        },
-        {
-            key: "connectToDatabase",
-            value: function connectToDatabase() {
+            key: "findAllTask",
+            value: function findAllTask() {
                 var _this = this;
                 return _async_to_generator(function() {
                     return _ts_generator(this, function(_state) {
-                        switch(_state.label){
-                            case 0:
-                                if (_this.env !== 'production') {
-                                    set('debug', true);
-                                }
-                                return [
-                                    4,
-                                    connect(dbConnection.url)
-                                ];
-                            case 1:
-                                _state.sent();
-                                return [
-                                    2
-                                ];
-                        }
+                        return [
+                            2,
+                            _this.task.find()
+                        ];
                     });
                 })();
-            }
-        },
-        {
-            key: "initializeRoutes",
-            value: function initializeRoutes(routes) {
-                var _this = this;
-                routes.forEach(function(route) {
-                    _this.app.use('/', route.router);
-                });
             }
         }
     ]);
-    return App;
+    return TaskService;
 }();
-export default App;
+export default TaskService;
 
-//# sourceMappingURL=app.js.map
+//# sourceMappingURL=task.service.js.map

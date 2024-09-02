@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/interfaces/routes.interface.ts"],"sourcesContent":["import { Router } from 'express';\r\n\r\nexport interface Routes {\r\n    path?: string;\r\n    router: Router;\r\n}"],"names":[],"mappings":"AAEA,WAGC"}

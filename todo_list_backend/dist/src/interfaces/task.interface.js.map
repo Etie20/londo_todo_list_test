@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/interfaces/task.interface.ts"],"sourcesContent":["export interface Task {\r\n    _id: string,\r\n    name: string,\r\n    description: string,\r\n    state: TaskState,\r\n}\r\n\r\nexport type TaskState = \"TODO\" | \"DONE\";"],"names":[],"mappings":"AAOA,WAAwC"}
