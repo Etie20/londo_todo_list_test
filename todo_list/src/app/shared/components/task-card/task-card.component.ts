@@ -11,6 +11,7 @@ import {TaskService} from "../../../services/task/task.service";
 import {HlmButtonDirective} from "../../libs/ui/ui-button-helm/src";
 import {CreateTaskRequest} from "../../../core/dtos/request/CreateTaskRequest";
 import {doneStateId, stateDefaultId} from "../../../constants/constants";
+import {TokenService} from "../../../services/token/token.service";
 
 @Component({
   selector: 'app-task-card',
@@ -26,23 +27,20 @@ export class TaskCardComponent {
   loading = signal(false);
   cardLoading = signal(false);
 
-  constructor(private taskService: TaskService) {}
+  constructor(private taskService: TaskService, private tokenService: TokenService) {}
 
 
   drop(event: CdkDragDrop<Task>) {
     this.cardLoading.set(true);
-    const monArray = [event.container.data]
     console.log(event.container.data._id);
     const updateTaskRequest: CreateTaskRequest = {
       category: this.task.category._id,
       description: this.task.description,
       name: this.task.name,
-      state: event.container.data.state._id === stateDefaultId?stateDefaultId:doneStateId
+      state: event.container.data.state._id === stateDefaultId?stateDefaultId:doneStateId,
+      user: this.tokenService.getUserId()
     }
     this.taskService.updateTask(this.task._id, updateTaskRequest).subscribe({
-      next: (data) => {
-        this.loading.set(false)
-      },
       complete: () => {
         this.loading.set(false)
       }

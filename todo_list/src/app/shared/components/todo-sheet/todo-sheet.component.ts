@@ -24,6 +24,7 @@ import {TaskService} from "../../../services/task/task.service";
 import {CreateTaskRequest} from "../../../core/dtos/request/CreateTaskRequest";
 import {HlmErrorDirective, HlmFormFieldComponent} from "@spartan-ng/ui-formfield-helm";
 import {Task} from "../../../core/models/Task";
+import {TokenService} from "../../../services/token/token.service";
 
 @Component({
   selector: 'app-todo-sheet',
@@ -58,17 +59,23 @@ export class TodoSheetComponent implements OnInit{
 
   constructor(private categoryService: CategoryService,
               private fb: FormBuilder,
-              private taskService: TaskService
+              private taskService: TaskService,
+              private tokenService: TokenService
               ) {
   }
 
   ngOnInit(): void {
-    this.categoryService.findAllCategories().subscribe(data => this.categories = data.data);
-    this.todoForm = this.fb.group({
-      name: [this.task !== undefined?this.task.name:'', Validators.required],
-      description: [this.task !== undefined?this.task.description:'', Validators.required],
-      state: [this.task !== undefined?this.task.state._id:stateDefaultId, Validators.required],
-      category: [this.task !== undefined?this.task.category._id:this.categories[0]._id, Validators.required]
+    this.categoryService.findAllCategories().subscribe({
+      next: (data) => {
+        this.categories = data.data;
+        this.todoForm = this.fb.group({
+          name: [this.task !== undefined?this.task.name:'', Validators.required],
+          description: [this.task !== undefined?this.task.description:'', Validators.required],
+          state: [this.task !== undefined?this.task.state._id:stateDefaultId, Validators.required],
+          category: [this.task !== undefined?this.task.category._id:data.data[0]._id, Validators.required],
+          user: [this.tokenService.getUserId(), Validators.required]
+        });
+      }
     });
   }
 
@@ -80,7 +87,7 @@ export class TodoSheetComponent implements OnInit{
       const createTaskRequest: CreateTaskRequest = this.todoForm.getRawValue();
       if (this.task === undefined) {
         this.taskService.createTask(createTaskRequest).subscribe({
-          next: (data) => {
+          complete: () => {
             location.reload();
           },
           error: () => {

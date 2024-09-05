@@ -7,8 +7,8 @@ import {CreateTaskDto} from "@dtos/task.dto";
 class TaskService {
     public task = taskModel;
 
-    public async findAllTask(): Promise<Task[]> {
-        return this.task.find().populate('state').populate('category').populate('user');
+    public async findAllTask(userId: string): Promise<Task[]> {
+        return this.task.find().where('user', userId).populate('state').populate('category').populate('user');
     }
 
     public async createTask(taskData: CreateTaskDto): Promise<Task> {
