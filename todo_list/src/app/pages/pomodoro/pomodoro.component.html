@@ -1,0 +1,12 @@
+<div class="px-9 py-8">
+  <div class="flex flex-col items-center justify-center">
+    <ng-lottie
+      [options]="options"
+      class="w-80"
+      (animationCreated)="animationCreated($event)" />
+    <div class="flex gap-2 items-center">
+      <p>This feature will be available soon... 🥹, instead click here for fun 😆 </p>
+      <button (click)="play()" hlmBtn>Play</button>
+    </div>
+  </div>
+</div>

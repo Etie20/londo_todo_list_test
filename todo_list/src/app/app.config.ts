@@ -11,9 +11,13 @@ import {
   withInterceptorsFromDi
 } from "@angular/common/http";
 import {AuthInterceptor} from "./core/helpers/auth.interceptor";
+import {provideCacheableAnimationLoader, provideLottieOptions} from "ngx-lottie";
+import player from 'lottie-web';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideLottieOptions({ player: () => player }),
+    provideCacheableAnimationLoader(),
     provideRouter(routes),
     provideClientHydration(),
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
