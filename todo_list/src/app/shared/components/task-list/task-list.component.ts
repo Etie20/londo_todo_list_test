@@ -2,8 +2,13 @@ import {Component, Input} from '@angular/core';
 import {CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {TaskCardComponent} from "../task-card/task-card.component";
 import {HlmIconComponent, provideIcons} from "@spartan-ng/ui-icon-helm";
-import {lucideCheck} from "@ng-icons/lucide";
-import { Task } from '../../../core/model/Task';
+import {lucideCheck, lucidePlus} from "@ng-icons/lucide";
+import { Task } from '../../../core/models/Task';
+import {
+  HlmSheetComponent,
+} from "@spartan-ng/ui-sheet-helm";
+import { BrnSheetTriggerDirective} from "@spartan-ng/ui-sheet-brain";
+import {TodoSheetComponent} from "../todo-sheet/todo-sheet.component";
 
 @Component({
   selector: 'app-task-list',
@@ -12,10 +17,13 @@ import { Task } from '../../../core/model/Task';
     CdkDropList,
     TaskCardComponent,
     HlmIconComponent,
+    HlmSheetComponent,
+    BrnSheetTriggerDirective,
+    TodoSheetComponent
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css',
-  providers: [provideIcons({ lucideCheck })]
+  providers: [provideIcons({ lucideCheck, lucidePlus })]
 })
 export class TaskListComponent {
   @Input() tasks!: Task[];
@@ -23,7 +31,6 @@ export class TaskListComponent {
   @Input() state!: "TODO" | "DONE";
 
   drop(event: CdkDragDrop<Task[]>) {
-    console.log(event);
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {

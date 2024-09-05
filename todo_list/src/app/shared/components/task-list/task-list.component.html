@@ -13,5 +13,14 @@
     @for (task of tasks; track task){
       <app-task-card [task]="task" [state]="state"/>
     }
+    @if (state === 'TODO') {
+      <hlm-sheet side="right">
+        <button brnSheetTrigger class="w-full flex gap-2 hover:bg-secondary items-center rounded-sm transition duratio-300 cursor-pointer p-2">
+          <hlm-icon name="lucidePlus" />
+          <p class="text-sm font-semibold">Create task</p>
+        </button>
+        <app-todo-sheet />
+      </hlm-sheet>
+    }
   </div>
 </div>

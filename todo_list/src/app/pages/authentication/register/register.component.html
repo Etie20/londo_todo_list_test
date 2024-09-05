@@ -1,4 +1,4 @@
-<div class="flex justify-between items-center w-screen h-screen">
+<form [formGroup]="registerForm" class="flex justify-between items-center w-screen h-screen">
   <div class="flex flex-col items-center justify-center w-1/2 h-full border bg-secondary gap-2">
     <img src="assets/logo/logo.svg" class="w-32" alt="logo">
     <p class="font-extrabold text-white text-4xl">Londo Todo List</p>
@@ -14,10 +14,10 @@
         <p class="text-sm">Enter your email below to create your account</p>
       </div>
       <div class="grid w-full gap-2">
-        <input class="w-full" hlmInput placeholder='name@example.com' type='email' autocomplete="true"/>
-        <input class="w-full" hlmInput placeholder='********' type='password' />
+        <input class="w-full" formControlName="email" hlmInput placeholder='name@example.com' type='email' autocomplete="true"/>
+        <input class="w-full" formControlName="password" hlmInput placeholder='********' type='password' />
       </div>
-      <button hlmBtn class="w-full font-semibold" [disabled]="loading()">
+      <button (click)="onSubmit()" hlmBtn class="w-full font-semibold" [disabled]="loading() || registerForm.invalid">
         @if (loading()){
           <hlm-spinner class="w-5 h-5"/>
         } @else {
@@ -29,10 +29,10 @@
         <p class="text-xs">OR CONTINUE WITH</p>
         <hr class="w-1/4">
       </div>
-      <button hlmBtn class="flex justify-center items-center w-full font-semibold gap-2" variant="outline">
+      <button disabled hlmBtn class="flex justify-center items-center w-full font-semibold gap-2" variant="outline">
         <img src="assets/logo/google.svg" class="w-4" alt="google logo">
         <p>Google</p>
       </button>
     </div>
   </div>
-</div>
+</form>

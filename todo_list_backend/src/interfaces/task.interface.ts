@@ -1,8 +1,9 @@
+import {Base} from "@interfaces/base.interface";
+
 export interface Task {
     _id: string,
     name: string,
     description: string,
-    state: TaskState,
+    state: Base,
+    category: Base
 }
-
-export type TaskState = "TODO" | "DONE";

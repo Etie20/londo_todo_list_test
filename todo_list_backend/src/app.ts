@@ -1,9 +1,16 @@
 import express from 'express';
-import {NODE_ENV, PORT} from "@config";
-import {logger} from "@utils/logger";
+import {CREDENTIALS, LOG_FORMAT, NODE_ENV, ORIGIN, PORT} from "@config";
+import {logger, stream} from "@utils/logger";
 import { connect, set, disconnect } from 'mongoose';
 import { dbConnection } from '@databases';
 import {Routes} from "@interfaces/routes.interface";
+import helmet from 'helmet';
+import hpp from 'hpp';
+import morgan from 'morgan';
+import cors from 'cors';
+import compression from 'compression';
+
+
 
 class App {
     public app: express.Application;
@@ -15,7 +22,8 @@ class App {
         this.env = NODE_ENV || 'development';
         this.port = PORT || 3000;
 
-        this.connectToDatabase();
+        this.connectToDatabase().then(() => {logger.info(`MongoDB is ready 😎`)});
+        this.initializeMiddlewares();
         this.initializeRoutes(routes);
     }
 
@@ -47,8 +55,18 @@ class App {
 
     private initializeRoutes(routes: Routes[]) {
         routes.forEach(route => {
-            this.app.use('/', route.router);
+            this.app.use('/api/v1/', route.router);
         });
+    }
+
+    private initializeMiddlewares() {
+        this.app.use(morgan(LOG_FORMAT, { stream }));
+        this.app.use(cors({ origin: ORIGIN, credentials: CREDENTIALS }));
+        this.app.use(hpp());
+        this.app.use(helmet());
+        this.app.use(compression());
+        this.app.use(express.json());
+        this.app.use(express.urlencoded({ extended: true }));
     }
 }
 
