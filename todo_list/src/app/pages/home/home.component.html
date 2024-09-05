@@ -1,0 +1,39 @@
+<div class="px-9 py-8 grid gap-5">
+  <div class="flex flex-col gap-2 md:flex-row justify-between items-start md:items-center">
+    <div class="relative">
+      <input
+        hlmInput
+        placeholder='Search'
+        class="px-9 border-secondary"
+        (input)="search($event)"
+      />
+      <hlm-icon
+        class="absolute inset-0 left-3 top-3 w-[1.1rem] text-secondary"
+        name="lucideSearch"
+      />
+    </div>
+    <div class="flex gap-2 items-center">
+      <p class="text-sm font-light">Group by</p>
+      <form [formGroup]="categoryForm">
+        <brn-select class="inline-block" formControlName="category">
+          <hlm-select-trigger class="w-32">
+            <hlm-select-value/>
+          </hlm-select-trigger>
+          <hlm-select-content class="w-56">
+            <hlm-option value="None">None</hlm-option>
+            <hlm-option value="Travail">Work</hlm-option>
+            <hlm-option value="Personnel">Personal</hlm-option>
+            <hlm-option value="Etudes">Study</hlm-option>
+          </hlm-select-content>
+        </brn-select>
+      </form>
+<!--      <hlm-icon-->
+<!--        name="lucideTornado"-->
+<!--      />-->
+    </div>
+  </div>
+  <div class="flex flex-col items-center md:flex-row gap-2 w-full" cdkDropListGroup>
+    <app-task-list title="TODO" [tasks]="filteredTodoTasks" state="TODO"/>
+    <app-task-list title="DONE" [tasks]="filteredDoneTasks" state="DONE"/>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+<a [href]="item.link" [ngClass]="{'text-primary bg-popover':isSelected()}" class="font-semibold cursor-pointer hover:bg-popover flex gap-3 px-0 rounded-md text-sm items-center justify-start h-10 w-full transition-colors duration-200">
+  <div [ngClass]="{'bg-primary':isSelected()}" class="h-3 w-1 rounded-r-md"></div>
+  <hlm-icon [name]="item.icon" />
+  <p>{{ item.title }}</p>
+</a>
