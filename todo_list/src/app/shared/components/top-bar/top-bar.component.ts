@@ -3,6 +3,8 @@ import {LogoComponent} from "../logo/logo.component";
 import {HlmIconComponent} from "@spartan-ng/ui-icon-helm";
 import {provideIcons} from "@ng-icons/core";
 import {lucideSiren} from "@ng-icons/lucide";
+import {TokenService} from "../../../services/token/token.service";
+import {User} from "../../../core/models/User";
 
 @Component({
   selector: 'app-top-bar',
@@ -16,5 +18,8 @@ import {lucideSiren} from "@ng-icons/lucide";
   providers: [provideIcons({lucideSiren})]
 })
 export class TopBarComponent {
-
+  user: User;
+  constructor(private tokenService: TokenService) {
+    this.user = tokenService.getUserData();
+  }
 }
