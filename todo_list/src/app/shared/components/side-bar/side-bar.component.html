@@ -1,0 +1,5 @@
+<div class="flex flex-col py-8 w-1/5 h-full hover:border-primary border-r-2 fixed top-14 transition duration-200 px-2">
+  @for (item of items; track item.title) {
+    <app-side-bar-item [item]="item" class="w-full"/>
+  }
+</div>

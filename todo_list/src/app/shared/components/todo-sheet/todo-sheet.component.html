@@ -1,0 +1,41 @@
+<form [formGroup]="todoForm">
+  <hlm-sheet-content *brnSheetContent="let ctx">
+    <hlm-sheet-header>
+      <h3 hlmSheetTitle>Create Task</h3>
+      <p hlmSheetDescription>Click save when you're done.</p>
+    </hlm-sheet-header>
+    <div class="py-4 grid gap-4">
+      <div class="items-center grid grid-cols-4 gap-4">
+        <hlm-form-field>
+          <label hlmLabel for="name" class="text-right text-sm">Name</label>
+          <input id="name" formControlName="name" hlmInput type="text" placeholder="Task Name" />
+          <hlm-error>Task name is required</hlm-error>
+        </hlm-form-field>
+      </div>
+      <div class="items-center grid grid-cols-4 gap-4">
+        <hlm-form-field>
+          <label hlmLabel for="description" class="text-right text-sm">Description</label>
+          <input id="description" formControlName="description" hlmInput type="text" placeholder="Description Name" />
+          <hlm-error>Description is required</hlm-error>
+        </hlm-form-field>
+      </div>
+      <brn-select
+        class="inline-block text-sm"
+        placeholder="Choisissez un role"
+        formControlName="category"
+      >
+        <hlm-select-trigger class="w-56 text-black">
+          <hlm-select-value />
+        </hlm-select-trigger>
+        <hlm-select-content>
+          @for (category of categories; track category._id) {
+            <hlm-option [value]="category._id">{{ category.name }}</hlm-option>
+          }
+        </hlm-select-content>
+      </brn-select>
+    </div>
+    <hlm-sheet-footer>
+      <button hlmBtn [disabled]="loading() || todoForm.invalid" type="submit" (click)="onSubmit()">{{task !== undefined?'Update':'Save'}} Task</button>
+    </hlm-sheet-footer>
+  </hlm-sheet-content>
+</form>
