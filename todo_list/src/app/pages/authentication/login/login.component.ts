@@ -1,4 +1,4 @@
-import {Component, OnInit, signal} from '@angular/core';
+import {Component, signal} from '@angular/core';
 import {HlmButtonDirective} from "../../../shared/libs/ui/ui-button-helm/src";
 import {HlmInputDirective} from "../../../shared/libs/ui/ui-input-helm/src";
 import {HlmSpinnerComponent} from "../../../shared/libs/ui/ui-spinner-helm/src";
@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {AuthRequest} from "../../../core/dtos/request/AuthRequest";
 import {AuthService} from "../../../services/auth/auth.service";
 import {Router} from "@angular/router";
+import {TokenService} from "../../../services/token/token.service";
 
 @Component({
   selector: 'app-login',
@@ -27,6 +28,7 @@ export class LoginComponent {
   constructor(private fb: FormBuilder,
               private authService: AuthService,
               private router: Router,
+              private tokenService: TokenService
               ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.email, Validators.required]],
@@ -43,6 +45,8 @@ export class LoginComponent {
       this.authService.login(authRequest).subscribe({
         next: (data) => {
           this.router.navigate(['home']).then();
+          this.tokenService.saveToken(<string>data.token?.token);
+          this.tokenService.saveUserData(data.data);
         },
         error: () => {
           this.loading.set(false)
