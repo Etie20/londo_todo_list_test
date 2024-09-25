@@ -70,7 +70,7 @@ export class TodoSheetComponent implements OnInit{
         this.categories = data.data;
         this.todoForm = this.fb.group({
           name: [this.task !== undefined?this.task.name:'', Validators.required],
-          description: [this.task !== undefined?this.task.description:'', Validators.required],
+          description: [this.task !== undefined?this.task.description:''],
           state: [this.task !== undefined?this.task.state._id:stateDefaultId, Validators.required],
           category: [this.task !== undefined?this.task.category._id:data.data[0]._id, Validators.required],
           user: [this.tokenService.getUserId(), Validators.required]

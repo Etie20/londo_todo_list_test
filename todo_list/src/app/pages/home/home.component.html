@@ -20,16 +20,13 @@
             <hlm-select-value/>
           </hlm-select-trigger>
           <hlm-select-content class="w-56">
-            <hlm-option value="None">None</hlm-option>
-            <hlm-option value="Travail">Work</hlm-option>
-            <hlm-option value="Personnel">Personal</hlm-option>
-            <hlm-option value="Etudes">Study</hlm-option>
+            @for (category of categories; track category._id){
+              <hlm-option [value]="category.name">{{ category.name }}</hlm-option>
+            }
           </hlm-select-content>
         </brn-select>
       </form>
-<!--      <hlm-icon-->
-<!--        name="lucideTornado"-->
-<!--      />-->
+      <button hlmBtn (click)="filterByCategory()">Apply</button>
     </div>
   </div>
   <div class="flex flex-col items-center md:flex-row gap-2 w-full" cdkDropListGroup>

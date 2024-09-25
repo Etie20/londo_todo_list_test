@@ -15,6 +15,9 @@ import {TaskCardComponent} from "../../shared/components/task-card/task-card.com
 import {TaskListComponent} from "../../shared/components/task-list/task-list.component";
 import {Task} from "../../core/models/Task";
 import {TaskService} from "../../services/task/task.service";
+import {HlmButtonDirective} from "../../shared/libs/ui/ui-button-helm/src";
+import {CategoryService} from "../../services/category/category.service";
+import {Base} from "../../core/models/Base";
 
 @Component({
   selector: 'app-home',
@@ -30,6 +33,7 @@ import {TaskService} from "../../services/task/task.service";
     CdkDrag,
     TaskCardComponent,
     TaskListComponent,
+    HlmButtonDirective,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
@@ -42,19 +46,24 @@ export class HomeComponent implements OnInit{
   filteredDoneTasks: Task[] = [];
   todo: Task[] = [];
   done: Task[] = [];
+  categories!: Base[];
 
-  constructor(private fb: FormBuilder, private taskService: TaskService) {
-    this.categoryForm = this.fb.group({
-      category: ['None']
-    })
+  constructor(private fb: FormBuilder, private taskService: TaskService, private categoryService: CategoryService) {
   }
 
   ngOnInit(): void {
+    this.categoryService.findAllCategories().subscribe(data => {
+      this.categories = data.data;
+      this.categories.push({_id:"NONE", name:"NONE", __v:0});
+    });
     this.taskService.findAllTasks().subscribe(data => {
       this.todo = data.data.filter(data => data.state.name === 'TODO');
       this.filteredTodoTasks = this.todo;
       this.done = data.data.filter(data => data.state.name === 'DONE');
       this.filteredDoneTasks = this.done;
+    });
+    this.categoryForm = this.fb.group({
+      category: ['NONE']
     });
   }
 
@@ -68,6 +77,17 @@ export class HomeComponent implements OnInit{
         this.filteredTodoTasks = this.todo;
         this.filteredDoneTasks = this.done;
       });
+    }
+  }
+
+  filterByCategory(){
+    console.log(this.categoryForm.value['category']);
+    if (this.categoryForm.value['category'] === 'NONE'){
+      this.filteredTodoTasks = this.todo;
+      this.filteredDoneTasks = this.done;
+    } else {
+      this.filteredTodoTasks = this.todo.filter(value => value.category.name === this.categoryForm.value['category']);
+      this.filteredDoneTasks = this.done.filter(value => value.category.name === this.categoryForm.value['category']);
     }
   }
 }
