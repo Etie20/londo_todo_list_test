@@ -17,4 +17,7 @@ export class CreateTaskDto {
     @IsString()
     @IsOptional()
     public created_at: Date;
+
+    @IsString()
+    public user: string;
 }

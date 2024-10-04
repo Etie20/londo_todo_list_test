@@ -37,8 +37,8 @@ export class RegisterComponent {
       this.loading.set(true);
       const authRequest: AuthRequest = this.registerForm.getRawValue();
       this.authService.register(authRequest).subscribe({
-        next: (data) => {
-          this.router.navigate(['home']).then();
+        complete: () => {
+          this.router.navigate(['login']).then();
         },
         error: () => {
           this.loading.set(false)

@@ -62,8 +62,8 @@ export class TokenService {
     return this.getTokenExpirationDate()!.getTime() < Date.now();
   }
 
-  public getUserId(token: string) {
-    const payload = this.parseJwt(token);
+  public getUserId() {
+    const payload = this.parseJwt(this.getToken());
     return payload._id;
   }
 
