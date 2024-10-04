@@ -5,13 +5,16 @@ import {provideIcons} from "@ng-icons/core";
 import {lucideSiren} from "@ng-icons/lucide";
 import {TokenService} from "../../../services/token/token.service";
 import {User} from "../../../core/models/User";
+import {HlmAvatarComponent, HlmAvatarFallbackDirective} from "@spartan-ng/ui-avatar-helm";
 
 @Component({
   selector: 'app-top-bar',
   standalone: true,
   imports: [
     LogoComponent,
-    HlmIconComponent
+    HlmIconComponent,
+    HlmAvatarComponent,
+    HlmAvatarFallbackDirective
   ],
   templateUrl: './top-bar.component.html',
   styleUrl: './top-bar.component.css',

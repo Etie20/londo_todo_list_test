@@ -39,6 +39,9 @@
       ],
       "@spartan-ng/ui-label-helm": [
         ".\\src/app/shared/libs/ui/ui-label-helm/src/index.ts"
+      ],
+      "@spartan-ng/ui-avatar-helm": [
+        ".\\src/app/shared/libs/ui/ui-avatar-helm/src/index.ts"
       ]
     }
   },

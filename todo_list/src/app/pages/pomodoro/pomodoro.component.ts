@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {AnimationOptions, LottieComponent} from "ngx-lottie";
 import {AnimationItem} from "lottie-web";
 import {HlmButtonDirective} from "../../shared/libs/ui/ui-button-helm/src";
