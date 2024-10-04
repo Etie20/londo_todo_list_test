@@ -155,10 +155,15 @@ function _ts_generator(thisArg, body) {
     }
 }
 import express from 'express';
-import { NODE_ENV, PORT } from "@config";
-import { logger } from "@utils/logger";
+import { CREDENTIALS, LOG_FORMAT, NODE_ENV, ORIGIN, PORT } from "@config";
+import { logger, stream } from "@utils/logger";
 import { connect, set, disconnect } from 'mongoose';
 import { dbConnection } from '@databases';
+import helmet from 'helmet';
+import hpp from 'hpp';
+import morgan from 'morgan';
+import cors from 'cors';
+import compression from 'compression';
 var App = /*#__PURE__*/ function() {
     "use strict";
     function App(routes) {
@@ -169,7 +174,11 @@ var App = /*#__PURE__*/ function() {
         this.app = express();
         this.env = NODE_ENV || 'development';
         this.port = PORT || 3000;
-        this.connectToDatabase();
+        this.connectToDatabase().then(function() {
+            logger.info("MongoDB is ready \uD83D\uDE0E");
+        });
+        this.initializeMiddlewares();
+        this.initializeRoutes(routes);
     }
     _create_class(App, [
         {
@@ -255,8 +264,27 @@ var App = /*#__PURE__*/ function() {
             value: function initializeRoutes(routes) {
                 var _this = this;
                 routes.forEach(function(route) {
-                    _this.app.use('/', route.router);
+                    _this.app.use('/api/v1/', route.router);
                 });
+            }
+        },
+        {
+            key: "initializeMiddlewares",
+            value: function initializeMiddlewares() {
+                this.app.use(morgan(LOG_FORMAT, {
+                    stream: stream
+                }));
+                this.app.use(cors({
+                    origin: ORIGIN,
+                    credentials: CREDENTIALS
+                }));
+                this.app.use(hpp());
+                this.app.use(helmet());
+                this.app.use(compression());
+                this.app.use(express.json());
+                this.app.use(express.urlencoded({
+                    extended: true
+                }));
             }
         }
     ]);

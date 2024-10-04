@@ -140,17 +140,27 @@ function _ts_generator(thisArg, body) {
         };
     }
 }
-import TaskService from "@services/task.service";
-import { SECRET_KEY } from "@config";
-import { verify } from "jsonwebtoken";
-var TaskController = function TaskController() {
+import AuthService from '@services/auth.service';
+var AuthController = function AuthController() {
     "use strict";
-    _class_call_check(this, TaskController);
+    _class_call_check(this, AuthController);
     var _this = this;
-    _define_property(this, "taskService", new TaskService());
-    _define_property(this, "getTasks", /*#__PURE__*/ function() {
+    _define_property(this, "authService", new AuthService());
+    _define_property(this, "findAllUsers", /*#__PURE__*/ function() {
         var _ref = _async_to_generator(function(req, res, next) {
-            var Authorization, secretKey, verificationResponse, userId, findAllTasksData, error;
+            return _ts_generator(this, function(_state) {
+                return [
+                    2
+                ];
+            });
+        });
+        return function(req, res, next) {
+            return _ref.apply(this, arguments);
+        };
+    }());
+    _define_property(this, "signUp", /*#__PURE__*/ function() {
+        var _ref = _async_to_generator(function(req, res, next) {
+            var userData, signUpUserData, error;
             return _ts_generator(this, function(_state) {
                 switch(_state.label){
                     case 0:
@@ -160,19 +170,16 @@ var TaskController = function TaskController() {
                             ,
                             3
                         ]);
-                        Authorization = req.header('Authorization').split('Bearer ')[1];
-                        secretKey = SECRET_KEY;
-                        verificationResponse = verify(Authorization, secretKey);
-                        userId = verificationResponse._id;
+                        userData = req.body;
                         return [
                             4,
-                            _this.taskService.findAllTask(userId)
+                            _this.authService.signup(userData)
                         ];
                     case 1:
-                        findAllTasksData = _state.sent();
-                        res.status(200).json({
-                            data: findAllTasksData,
-                            message: "findAll"
+                        signUpUserData = _state.sent();
+                        res.status(201).json({
+                            data: signUpUserData,
+                            message: 'signup'
                         });
                         return [
                             3,
@@ -196,9 +203,9 @@ var TaskController = function TaskController() {
             return _ref.apply(this, arguments);
         };
     }());
-    _define_property(this, "createTask", /*#__PURE__*/ function() {
+    _define_property(this, "logIn", /*#__PURE__*/ function() {
         var _ref = _async_to_generator(function(req, res, next) {
-            var createTaskData, error;
+            var userData, _ref, token, findUser, error;
             return _ts_generator(this, function(_state) {
                 switch(_state.label){
                     case 0:
@@ -208,15 +215,17 @@ var TaskController = function TaskController() {
                             ,
                             3
                         ]);
+                        userData = req.body;
                         return [
                             4,
-                            _this.taskService.createTask(req.body)
+                            _this.authService.login(userData)
                         ];
                     case 1:
-                        createTaskData = _state.sent();
+                        _ref = _state.sent(), token = _ref.token, findUser = _ref.findUser;
                         res.status(200).json({
-                            data: createTaskData,
-                            message: "create"
+                            data: findUser,
+                            message: 'login',
+                            token: token
                         });
                         return [
                             3,
@@ -240,9 +249,9 @@ var TaskController = function TaskController() {
             return _ref.apply(this, arguments);
         };
     }());
-    _define_property(this, "deleteTask", /*#__PURE__*/ function() {
+    _define_property(this, "logOut", /*#__PURE__*/ function() {
         var _ref = _async_to_generator(function(req, res, next) {
-            var error;
+            var userData, logOutUserData, error;
             return _ts_generator(this, function(_state) {
                 switch(_state.label){
                     case 0:
@@ -252,58 +261,19 @@ var TaskController = function TaskController() {
                             ,
                             3
                         ]);
+                        userData = req.user;
                         return [
                             4,
-                            _this.taskService.deleteTask(req.params.id)
+                            _this.authService.logout(userData)
                         ];
                     case 1:
-                        _state.sent();
-                        res.status(200).json({
-                            message: "delete"
-                        });
-                        return [
-                            3,
-                            3
-                        ];
-                    case 2:
-                        error = _state.sent();
-                        next(error);
-                        return [
-                            3,
-                            3
-                        ];
-                    case 3:
-                        return [
-                            2
-                        ];
-                }
-            });
-        });
-        return function(req, res, next) {
-            return _ref.apply(this, arguments);
-        };
-    }());
-    _define_property(this, "updateTask", /*#__PURE__*/ function() {
-        var _ref = _async_to_generator(function(req, res, next) {
-            var updateTaskData, error;
-            return _ts_generator(this, function(_state) {
-                switch(_state.label){
-                    case 0:
-                        _state.trys.push([
-                            0,
-                            2,
-                            ,
-                            3
+                        logOutUserData = _state.sent();
+                        res.setHeader('Set-Cookie', [
+                            'Authorization=; Max-age=0'
                         ]);
-                        return [
-                            4,
-                            _this.taskService.updateTask(req.params.id, req.body)
-                        ];
-                    case 1:
-                        updateTaskData = _state.sent();
                         res.status(200).json({
-                            data: updateTaskData,
-                            message: "update"
+                            data: logOutUserData,
+                            message: 'logout'
                         });
                         return [
                             3,
@@ -328,6 +298,6 @@ var TaskController = function TaskController() {
         };
     }());
 };
-export default TaskController;
+export default AuthController;
 
-//# sourceMappingURL=task.controller.js.map
+//# sourceMappingURL=auth.controller.js.map

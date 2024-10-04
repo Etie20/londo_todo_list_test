@@ -31,32 +31,29 @@ function _define_property(obj, key, value) {
     return obj;
 }
 import { Router } from "express";
-import TaskController from "@controllers/task.controller";
-import validationMiddleware from "@/middlewares/validation.middleware";
-import { CreateTaskDto } from "@dtos/task.dto";
-import authMiddleware from "@middlewares/auth.middleware";
-var TaskRoute = /*#__PURE__*/ function() {
+import validationMiddleware from "@middlewares/validation.middleware";
+import { CreateBaseDto } from "@dtos/state.dto";
+import CategoryController from "@controllers/category.controller";
+var CategoryRoute = /*#__PURE__*/ function() {
     "use strict";
-    function TaskRoute() {
-        _class_call_check(this, TaskRoute);
-        _define_property(this, "path", '/task');
+    function CategoryRoute() {
+        _class_call_check(this, CategoryRoute);
+        _define_property(this, "path", '/category');
         _define_property(this, "router", Router());
-        _define_property(this, "taskController", new TaskController());
+        _define_property(this, "categoryController", new CategoryController());
         this.initializeRoutes();
     }
-    _create_class(TaskRoute, [
+    _create_class(CategoryRoute, [
         {
             key: "initializeRoutes",
             value: function initializeRoutes() {
-                this.router.get("".concat(this.path), authMiddleware, this.taskController.getTasks);
-                this.router.post("".concat(this.path), authMiddleware, validationMiddleware(CreateTaskDto, 'body'), this.taskController.createTask);
-                this.router.put("".concat(this.path, "/:id"), authMiddleware, validationMiddleware(CreateTaskDto, 'body', true), this.taskController.updateTask);
-                this.router.delete("".concat(this.path, "/:id"), authMiddleware, this.taskController.deleteTask);
+                this.router.get("".concat(this.path), this.categoryController.getCategories);
+                this.router.post("".concat(this.path), validationMiddleware(CreateBaseDto, 'body'), this.categoryController.createCategory);
             }
         }
     ]);
-    return TaskRoute;
+    return CategoryRoute;
 }();
-export default TaskRoute;
+export default CategoryRoute;
 
-//# sourceMappingURL=task.route.js.map
+//# sourceMappingURL=category.route.js.map

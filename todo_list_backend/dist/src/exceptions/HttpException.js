@@ -4,6 +4,10 @@ function _assert_this_initialized(self) {
     }
     return self;
 }
+function _call_super(_this, derived, args) {
+    derived = _get_prototype_of(derived);
+    return _possible_constructor_return(_this, _is_native_reflect_construct() ? Reflect.construct(derived, args || [], _get_prototype_of(_this).constructor) : derived.apply(_this, args));
+}
 function _class_call_check(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
@@ -105,39 +109,22 @@ function _wrap_native_super(Class) {
     return _wrap_native_super(Class);
 }
 function _is_native_reflect_construct() {
-    if (typeof Reflect === "undefined" || !Reflect.construct) return false;
-    if (Reflect.construct.sham) return false;
-    if (typeof Proxy === "function") return true;
     try {
-        Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {}));
-        return true;
-    } catch (e) {
-        return false;
-    }
-}
-function _create_super(Derived) {
-    var hasNativeReflectConstruct = _is_native_reflect_construct();
-    return function _createSuperInternal() {
-        var Super = _get_prototype_of(Derived), result;
-        if (hasNativeReflectConstruct) {
-            var NewTarget = _get_prototype_of(this).constructor;
-            result = Reflect.construct(Super, arguments, NewTarget);
-        } else {
-            result = Super.apply(this, arguments);
-        }
-        return _possible_constructor_return(this, result);
-    };
+        var result = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function() {}));
+    } catch (_) {}
+    return (_is_native_reflect_construct = function() {
+        return !!result;
+    })();
 }
 export var HttpException = /*#__PURE__*/ function(Error1) {
     "use strict";
     _inherits(HttpException, Error1);
-    var _super = _create_super(HttpException);
     function HttpException(status, message) {
         _class_call_check(this, HttpException);
         var _this;
-        _this = _super.call(this, message);
-        _define_property(_assert_this_initialized(_this), "status", void 0);
-        _define_property(_assert_this_initialized(_this), "message", void 0);
+        _this = _call_super(this, HttpException, [
+            message
+        ]), _define_property(_this, "status", void 0), _define_property(_this, "message", void 0);
         _this.status = status;
         _this.message = message;
         return _this;

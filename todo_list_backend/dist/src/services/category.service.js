@@ -169,77 +169,48 @@ function _ts_generator(thisArg, body) {
         };
     }
 }
-import taskModel from "@models/task.model";
-import { HttpException } from "@exceptions/HttpException";
+import CategoryModel from "@models/category.model";
 import { isEmpty } from "class-validator";
-var TaskService = /*#__PURE__*/ function() {
+import { HttpException } from "@exceptions/HttpException";
+var CategoryService = /*#__PURE__*/ function() {
     "use strict";
-    function TaskService() {
-        _class_call_check(this, TaskService);
-        _define_property(this, "task", taskModel);
+    function CategoryService() {
+        _class_call_check(this, CategoryService);
+        _define_property(this, "category", CategoryModel);
     }
-    _create_class(TaskService, [
+    _create_class(CategoryService, [
         {
-            key: "findAllTask",
-            value: function findAllTask(userId) {
+            key: "findAllCategories",
+            value: function findAllCategories() {
                 var _this = this;
                 return _async_to_generator(function() {
                     return _ts_generator(this, function(_state) {
                         return [
                             2,
-                            _this.task.find().where('user', userId).populate('state').populate('category').populate('user')
+                            _this.category.find()
                         ];
                     });
                 })();
             }
         },
         {
-            key: "createTask",
-            value: function createTask(taskData) {
+            key: "createCategory",
+            value: function createCategory(categoryData) {
                 var _this = this;
                 return _async_to_generator(function() {
                     return _ts_generator(this, function(_state) {
-                        if (isEmpty(taskData)) throw new HttpException(400, "taskData is empty");
+                        if (isEmpty(categoryData)) throw new HttpException(400, "categoryData is empty");
                         return [
                             2,
-                            _this.task.create(_object_spread({}, taskData))
-                        ];
-                    });
-                })();
-            }
-        },
-        {
-            key: "updateTask",
-            value: function updateTask(taskId, taskData) {
-                var _this = this;
-                return _async_to_generator(function() {
-                    return _ts_generator(this, function(_state) {
-                        if (isEmpty(taskData)) throw new HttpException(400, "taskData is empty");
-                        return [
-                            2,
-                            _this.task.findByIdAndUpdate(taskId, _object_spread({}, taskData))
-                        ];
-                    });
-                })();
-            }
-        },
-        {
-            key: "deleteTask",
-            value: function deleteTask(taskId) {
-                var _this = this;
-                return _async_to_generator(function() {
-                    return _ts_generator(this, function(_state) {
-                        return [
-                            2,
-                            _this.task.findByIdAndDelete(taskId)
+                            _this.category.create(_object_spread({}, categoryData))
                         ];
                     });
                 })();
             }
         }
     ]);
-    return TaskService;
+    return CategoryService;
 }();
-export default TaskService;
+export default CategoryService;
 
-//# sourceMappingURL=task.service.js.map
+//# sourceMappingURL=category.service.js.map

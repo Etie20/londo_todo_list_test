@@ -31,32 +31,29 @@ function _define_property(obj, key, value) {
     return obj;
 }
 import { Router } from "express";
-import TaskController from "@controllers/task.controller";
-import validationMiddleware from "@/middlewares/validation.middleware";
-import { CreateTaskDto } from "@dtos/task.dto";
-import authMiddleware from "@middlewares/auth.middleware";
-var TaskRoute = /*#__PURE__*/ function() {
+import StateController from "@controllers/state.controller";
+import validationMiddleware from "@middlewares/validation.middleware";
+import { CreateBaseDto } from "@dtos/state.dto";
+var StateRoute = /*#__PURE__*/ function() {
     "use strict";
-    function TaskRoute() {
-        _class_call_check(this, TaskRoute);
-        _define_property(this, "path", '/task');
+    function StateRoute() {
+        _class_call_check(this, StateRoute);
+        _define_property(this, "path", '/state');
         _define_property(this, "router", Router());
-        _define_property(this, "taskController", new TaskController());
+        _define_property(this, "stateController", new StateController());
         this.initializeRoutes();
     }
-    _create_class(TaskRoute, [
+    _create_class(StateRoute, [
         {
             key: "initializeRoutes",
             value: function initializeRoutes() {
-                this.router.get("".concat(this.path), authMiddleware, this.taskController.getTasks);
-                this.router.post("".concat(this.path), authMiddleware, validationMiddleware(CreateTaskDto, 'body'), this.taskController.createTask);
-                this.router.put("".concat(this.path, "/:id"), authMiddleware, validationMiddleware(CreateTaskDto, 'body', true), this.taskController.updateTask);
-                this.router.delete("".concat(this.path, "/:id"), authMiddleware, this.taskController.deleteTask);
+                this.router.get("".concat(this.path), this.stateController.getState);
+                this.router.post("".concat(this.path), validationMiddleware(CreateBaseDto, 'body'), this.stateController.createState);
             }
         }
     ]);
-    return TaskRoute;
+    return StateRoute;
 }();
-export default TaskRoute;
+export default StateRoute;
 
-//# sourceMappingURL=task.route.js.map
+//# sourceMappingURL=state.route.js.map

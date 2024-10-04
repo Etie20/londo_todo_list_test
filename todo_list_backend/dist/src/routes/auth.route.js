@@ -30,33 +30,32 @@ function _define_property(obj, key, value) {
     }
     return obj;
 }
-import { Router } from "express";
-import TaskController from "@controllers/task.controller";
-import validationMiddleware from "@/middlewares/validation.middleware";
-import { CreateTaskDto } from "@dtos/task.dto";
-import authMiddleware from "@middlewares/auth.middleware";
-var TaskRoute = /*#__PURE__*/ function() {
+import { Router } from 'express';
+import AuthController from '@controllers/auth.controller';
+import { CreateUserDto } from '@dtos/users.dto';
+import authMiddleware from '@middlewares/auth.middleware';
+import validationMiddleware from '@middlewares/validation.middleware';
+var AuthRoute = /*#__PURE__*/ function() {
     "use strict";
-    function TaskRoute() {
-        _class_call_check(this, TaskRoute);
-        _define_property(this, "path", '/task');
+    function AuthRoute() {
+        _class_call_check(this, AuthRoute);
+        _define_property(this, "path", '/auth/');
         _define_property(this, "router", Router());
-        _define_property(this, "taskController", new TaskController());
+        _define_property(this, "authController", new AuthController());
         this.initializeRoutes();
     }
-    _create_class(TaskRoute, [
+    _create_class(AuthRoute, [
         {
             key: "initializeRoutes",
             value: function initializeRoutes() {
-                this.router.get("".concat(this.path), authMiddleware, this.taskController.getTasks);
-                this.router.post("".concat(this.path), authMiddleware, validationMiddleware(CreateTaskDto, 'body'), this.taskController.createTask);
-                this.router.put("".concat(this.path, "/:id"), authMiddleware, validationMiddleware(CreateTaskDto, 'body', true), this.taskController.updateTask);
-                this.router.delete("".concat(this.path, "/:id"), authMiddleware, this.taskController.deleteTask);
+                this.router.post("".concat(this.path, "signup"), validationMiddleware(CreateUserDto, 'body'), this.authController.signUp);
+                this.router.post("".concat(this.path, "login"), validationMiddleware(CreateUserDto, 'body'), this.authController.logIn);
+                this.router.post("".concat(this.path, "logout"), authMiddleware, this.authController.logOut);
             }
         }
     ]);
-    return TaskRoute;
+    return AuthRoute;
 }();
-export default TaskRoute;
+export default AuthRoute;
 
-//# sourceMappingURL=task.route.js.map
+//# sourceMappingURL=auth.route.js.map

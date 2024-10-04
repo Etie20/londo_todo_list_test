@@ -169,77 +169,48 @@ function _ts_generator(thisArg, body) {
         };
     }
 }
-import taskModel from "@models/task.model";
-import { HttpException } from "@exceptions/HttpException";
+import stateModel from "@models/state.model";
 import { isEmpty } from "class-validator";
-var TaskService = /*#__PURE__*/ function() {
+import { HttpException } from "@exceptions/HttpException";
+var StateService = /*#__PURE__*/ function() {
     "use strict";
-    function TaskService() {
-        _class_call_check(this, TaskService);
-        _define_property(this, "task", taskModel);
+    function StateService() {
+        _class_call_check(this, StateService);
+        _define_property(this, "state", stateModel);
     }
-    _create_class(TaskService, [
+    _create_class(StateService, [
         {
-            key: "findAllTask",
-            value: function findAllTask(userId) {
+            key: "findAllState",
+            value: function findAllState() {
                 var _this = this;
                 return _async_to_generator(function() {
                     return _ts_generator(this, function(_state) {
                         return [
                             2,
-                            _this.task.find().where('user', userId).populate('state').populate('category').populate('user')
+                            _this.state.find()
                         ];
                     });
                 })();
             }
         },
         {
-            key: "createTask",
-            value: function createTask(taskData) {
+            key: "createState",
+            value: function createState(stateData) {
                 var _this = this;
                 return _async_to_generator(function() {
                     return _ts_generator(this, function(_state) {
-                        if (isEmpty(taskData)) throw new HttpException(400, "taskData is empty");
+                        if (isEmpty(stateData)) throw new HttpException(400, "stateData is empty");
                         return [
                             2,
-                            _this.task.create(_object_spread({}, taskData))
-                        ];
-                    });
-                })();
-            }
-        },
-        {
-            key: "updateTask",
-            value: function updateTask(taskId, taskData) {
-                var _this = this;
-                return _async_to_generator(function() {
-                    return _ts_generator(this, function(_state) {
-                        if (isEmpty(taskData)) throw new HttpException(400, "taskData is empty");
-                        return [
-                            2,
-                            _this.task.findByIdAndUpdate(taskId, _object_spread({}, taskData))
-                        ];
-                    });
-                })();
-            }
-        },
-        {
-            key: "deleteTask",
-            value: function deleteTask(taskId) {
-                var _this = this;
-                return _async_to_generator(function() {
-                    return _ts_generator(this, function(_state) {
-                        return [
-                            2,
-                            _this.task.findByIdAndDelete(taskId)
+                            _this.state.create(_object_spread({}, stateData))
                         ];
                     });
                 })();
             }
         }
     ]);
-    return TaskService;
+    return StateService;
 }();
-export default TaskService;
+export default StateService;
 
-//# sourceMappingURL=task.service.js.map
+//# sourceMappingURL=state.service.js.map

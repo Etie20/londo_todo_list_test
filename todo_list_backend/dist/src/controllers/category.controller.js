@@ -32,20 +32,6 @@ function _class_call_check(instance, Constructor) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
-function _defineProperties(target, props) {
-    for(var i = 0; i < props.length; i++){
-        var descriptor = props[i];
-        descriptor.enumerable = descriptor.enumerable || false;
-        descriptor.configurable = true;
-        if ("value" in descriptor) descriptor.writable = true;
-        Object.defineProperty(target, descriptor.key, descriptor);
-    }
-}
-function _create_class(Constructor, protoProps, staticProps) {
-    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) _defineProperties(Constructor, staticProps);
-    return Constructor;
-}
 function _define_property(obj, key, value) {
     if (key in obj) {
         Object.defineProperty(obj, key, {
@@ -58,21 +44,6 @@ function _define_property(obj, key, value) {
         obj[key] = value;
     }
     return obj;
-}
-function _object_spread(target) {
-    for(var i = 1; i < arguments.length; i++){
-        var source = arguments[i] != null ? arguments[i] : {};
-        var ownKeys = Object.keys(source);
-        if (typeof Object.getOwnPropertySymbols === "function") {
-            ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function(sym) {
-                return Object.getOwnPropertyDescriptor(source, sym).enumerable;
-            }));
-        }
-        ownKeys.forEach(function(key) {
-            _define_property(target, key, source[key]);
-        });
-    }
-    return target;
 }
 function _ts_generator(thisArg, body) {
     var f, y, t, g, _ = {
@@ -169,77 +140,102 @@ function _ts_generator(thisArg, body) {
         };
     }
 }
-import taskModel from "@models/task.model";
-import { HttpException } from "@exceptions/HttpException";
-import { isEmpty } from "class-validator";
-var TaskService = /*#__PURE__*/ function() {
+import CategoryService from "@services/category.service";
+var CategoryController = function CategoryController() {
     "use strict";
-    function TaskService() {
-        _class_call_check(this, TaskService);
-        _define_property(this, "task", taskModel);
-    }
-    _create_class(TaskService, [
-        {
-            key: "findAllTask",
-            value: function findAllTask(userId) {
-                var _this = this;
-                return _async_to_generator(function() {
-                    return _ts_generator(this, function(_state) {
-                        return [
+    _class_call_check(this, CategoryController);
+    var _this = this;
+    _define_property(this, "categoryService", new CategoryService());
+    _define_property(this, "getCategories", /*#__PURE__*/ function() {
+        var _ref = _async_to_generator(function(req, res, next) {
+            var findAllCategoriesData, error;
+            return _ts_generator(this, function(_state) {
+                switch(_state.label){
+                    case 0:
+                        _state.trys.push([
+                            0,
                             2,
-                            _this.task.find().where('user', userId).populate('state').populate('category').populate('user')
-                        ];
-                    });
-                })();
-            }
-        },
-        {
-            key: "createTask",
-            value: function createTask(taskData) {
-                var _this = this;
-                return _async_to_generator(function() {
-                    return _ts_generator(this, function(_state) {
-                        if (isEmpty(taskData)) throw new HttpException(400, "taskData is empty");
+                            ,
+                            3
+                        ]);
                         return [
-                            2,
-                            _this.task.create(_object_spread({}, taskData))
+                            4,
+                            _this.categoryService.findAllCategories()
                         ];
-                    });
-                })();
-            }
-        },
-        {
-            key: "updateTask",
-            value: function updateTask(taskId, taskData) {
-                var _this = this;
-                return _async_to_generator(function() {
-                    return _ts_generator(this, function(_state) {
-                        if (isEmpty(taskData)) throw new HttpException(400, "taskData is empty");
+                    case 1:
+                        findAllCategoriesData = _state.sent();
+                        res.status(200).json({
+                            data: findAllCategoriesData,
+                            message: "findAll"
+                        });
                         return [
-                            2,
-                            _this.task.findByIdAndUpdate(taskId, _object_spread({}, taskData))
+                            3,
+                            3
                         ];
-                    });
-                })();
-            }
-        },
-        {
-            key: "deleteTask",
-            value: function deleteTask(taskId) {
-                var _this = this;
-                return _async_to_generator(function() {
-                    return _ts_generator(this, function(_state) {
+                    case 2:
+                        error = _state.sent();
+                        next(error);
                         return [
-                            2,
-                            _this.task.findByIdAndDelete(taskId)
+                            3,
+                            3
                         ];
-                    });
-                })();
-            }
-        }
-    ]);
-    return TaskService;
-}();
-export default TaskService;
+                    case 3:
+                        return [
+                            2
+                        ];
+                }
+            });
+        });
+        return function(req, res, next) {
+            return _ref.apply(this, arguments);
+        };
+    }());
+    _define_property(this, "createCategory", /*#__PURE__*/ function() {
+        var _ref = _async_to_generator(function(req, res, next) {
+            var categoryData, createCategoryData, error;
+            return _ts_generator(this, function(_state) {
+                switch(_state.label){
+                    case 0:
+                        _state.trys.push([
+                            0,
+                            2,
+                            ,
+                            3
+                        ]);
+                        categoryData = req.body;
+                        return [
+                            4,
+                            _this.categoryService.createCategory(categoryData)
+                        ];
+                    case 1:
+                        createCategoryData = _state.sent();
+                        res.status(200).json({
+                            data: createCategoryData,
+                            message: "create"
+                        });
+                        return [
+                            3,
+                            3
+                        ];
+                    case 2:
+                        error = _state.sent();
+                        next(error);
+                        return [
+                            3,
+                            3
+                        ];
+                    case 3:
+                        return [
+                            2
+                        ];
+                }
+            });
+        });
+        return function(req, res, next) {
+            return _ref.apply(this, arguments);
+        };
+    }());
+};
+export default CategoryController;
 
-//# sourceMappingURL=task.service.js.map
+//# sourceMappingURL=category.controller.js.map
