@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../../src/dtos/state.dto.ts"],"sourcesContent":["export class CreateBaseDto {\r\n    public name: string;\r\n}"],"names":["CreateBaseDto","name"],"mappings":";;;;+BAAaA;;;eAAAA;;;;;;;;;;;;;;;;AAAN,IAAA,AAAMA,gBAAN,MAAMA;;QACT,uBAAOC,QAAP,KAAA;;AACJ"}
