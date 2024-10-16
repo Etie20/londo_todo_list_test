@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {RouterOutlet} from "@angular/router";
 import {LogoComponent} from "../../../shared/components/logo/logo.component";
-import {HlmIconComponent} from "@spartan-ng/ui-icon-helm";
+import {HlmIconComponent} from "../../../shared/libs/ui/ui-icon-helm/src";
 import {provideIcons} from '@ng-icons/core';
 import {lucideSettings} from '@ng-icons/lucide';
 import {TopBarComponent} from "../../../shared/components/top-bar/top-bar.component";

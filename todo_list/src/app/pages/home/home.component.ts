@@ -1,10 +1,10 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {HlmIconComponent} from "@spartan-ng/ui-icon-helm";
+import {HlmIconComponent} from "../../shared/libs/ui/ui-icon-helm/src";
 import {provideIcons} from "@ng-icons/core";
 import {lucideSearch, lucideTornado} from "@ng-icons/lucide";
 import {HlmInputDirective} from "../../shared/libs/ui/ui-input-helm/src";
 import { BrnSelectImports } from '@spartan-ng/ui-select-brain';
-import { HlmSelectImports } from '@spartan-ng/ui-select-helm';
+import { HlmSelectImports } from '../../shared/libs/ui/ui-select-helm/src';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {
   CdkDrag,
