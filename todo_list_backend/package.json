@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "description": "Todo list app for Londo Technology test",
   "scripts": {
-    "start": "pnpm run build && cross-env NODE_ENV=production node dist/server.js",
+    "start": "pnpm run build && cross-env NODE_ENV=production node dist/src/server.js",
     "dev": "cross-env NODE_ENV=development nodemon",
     "build": "swc src -d dist --source-maps --copy-files",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy:prod": "pnpm run build && pm2 start ecosystem.config.js --only prod",
+    "deploy:dev": "pm2 start ecosystem.config.js --only dev"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +25,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.6.0",
     "morgan": "^1.10.0",
+    "pm2": "^5.4.2",
     "winston": "^3.14.2",
     "winston-daily-rotate-file": "^5.0.0"
   },

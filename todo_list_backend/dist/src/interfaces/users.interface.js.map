@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../../src/interfaces/users.interface.ts"],"sourcesContent":["export interface User {\r\n    _id: string;\r\n    email: string;\r\n    password: string;\r\n}"],"names":[],"mappings":"AAAA,WAIC"}
