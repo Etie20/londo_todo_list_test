@@ -21,21 +21,11 @@ export class TokenService {
   }
 
   public getToken(): string | null {
-    if (typeof localStorage !== 'undefined') {
       return localStorage.getItem(TOKEN_KEY);
-    } else {
-      console.warn('localStorage is not available');
-      return null;
-    }
   }
 
   public removeToken() {
-    if (typeof localStorage !== 'undefined') {
       return localStorage.removeItem(TOKEN_KEY);
-    } else {
-      console.warn('localStorage is not available');
-      return null;
-    }
   }
 
   public parseJwt(token: string | null) {

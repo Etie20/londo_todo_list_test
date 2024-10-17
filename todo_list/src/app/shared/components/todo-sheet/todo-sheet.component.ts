@@ -19,7 +19,7 @@ import {HlmSelectImports} from "../../libs/ui/ui-select-helm/src";
 import {CategoryService} from "../../../services/category/category.service";
 import {Base} from "../../../core/models/Base";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {stateDefaultId} from "../../../constants/constants";
+import {rebuildTasks, stateDefaultId} from "../../../constants/constants";
 import {TaskService} from "../../../services/task/task.service";
 import {CreateTaskRequest} from "../../../core/dtos/request/CreateTaskRequest";
 import {HlmErrorDirective, HlmFormFieldComponent} from "../../libs/ui/ui-formfield-helm/src";
@@ -92,8 +92,8 @@ export class TodoSheetComponent implements OnInit{
       if (this.task === undefined) {
         this.taskService.createTask(createTaskRequest).subscribe({
           next: (data) => {
-            console.log(data.data);
-            this.storeService.initializeTask([...this.storeService.tasks(), data.data]);
+            this.loading.set(false)
+            this.storeService.updateTasks([...this.storeService.tasks(), data.data], [...this.storeService.defaultTasks(), data.data]);
             this.showSuccess('Task Created')
           },
           error: () => {
@@ -104,7 +104,8 @@ export class TodoSheetComponent implements OnInit{
       } else {
         this.taskService.updateTask(this.task._id, createTaskRequest).subscribe({
           next: (data) => {
-            this.storeService.initializeTask(this.storeService.tasks().map(t => t._id === this.task._id ? data.data : t));
+            this.loading.set(false)
+            this.storeService.updateTasks(rebuildTasks(this.storeService.tasks(), data.data), rebuildTasks(this.storeService.defaultTasks(), data.data));
             this.showSuccess('Task Updated')
           },
           error: () => {
