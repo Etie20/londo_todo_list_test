@@ -91,8 +91,9 @@ export class TodoSheetComponent implements OnInit{
       const createTaskRequest: CreateTaskRequest = this.todoForm.getRawValue();
       if (this.task === undefined) {
         this.taskService.createTask(createTaskRequest).subscribe({
-          complete: () => {
-            this.storeService.initializeTask([...this.storeService.tasks(), this.task]);
+          next: (data) => {
+            console.log(data.data);
+            this.storeService.initializeTask([...this.storeService.tasks(), data.data]);
             this.showSuccess('Task Created')
           },
           error: () => {

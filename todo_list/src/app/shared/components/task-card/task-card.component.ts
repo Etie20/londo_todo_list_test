@@ -69,7 +69,7 @@ export class TaskCardComponent {
     this.loading.set(true);
     this.taskService.deleteTask(this.task._id).subscribe({
       complete: () => {
-        this.storeService.initializeTask(this.storeService.tasks().filter(t => t._id === this.task._id));
+        this.storeService.initializeTask(this.storeService.tasks().filter(t => t._id !== this.task._id));
         this.showSuccess('Task Deleted')
       },
       error: () => {
