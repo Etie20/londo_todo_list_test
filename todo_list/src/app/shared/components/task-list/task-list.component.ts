@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, Signal} from '@angular/core';
 import {CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {TaskCardComponent} from "../task-card/task-card.component";
 import {HlmIconComponent, provideIcons} from "../../libs/ui/ui-icon-helm/src";
@@ -26,7 +26,7 @@ import {TodoSheetComponent} from "../todo-sheet/todo-sheet.component";
   providers: [provideIcons({ lucideCheck, lucidePlus })]
 })
 export class TaskListComponent {
-  @Input() tasks!: Task[];
+  @Input() tasks!: Signal<Task[]>;
   @Input() title!: string;
   @Input() state!: "TODO" | "DONE";
 

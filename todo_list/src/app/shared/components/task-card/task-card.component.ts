@@ -13,6 +13,7 @@ import {CreateTaskRequest} from "../../../core/dtos/request/CreateTaskRequest";
 import {TokenService} from "../../../services/token/token.service";
 import {findStateInverse} from "../../../core/utils/utils";
 import {MessageService} from "primeng/api";
+import {StoreService} from "../../../services/store/store.service";
 
 @Component({
   selector: 'app-task-card',
@@ -27,7 +28,7 @@ export class TaskCardComponent {
   isPopup = signal(false);
   loading = signal(false);
 
-  constructor(private taskService: TaskService, private tokenService: TokenService, private messageService: MessageService) {}
+  constructor(private taskService: TaskService, private tokenService: TokenService, private messageService: MessageService, private storeService: StoreService) {}
 
 
   drop(event: CdkDragDrop<Task>) {
@@ -48,7 +49,9 @@ export class TaskCardComponent {
     }
 
     this.taskService.updateTask(this.task._id, updateTaskRequest).subscribe({
-      complete: () => {
+      next: (data) => {
+        this.storeService.initializeTask(this.storeService.tasks().map(t => t._id === this.task._id ? data.data : t));
+        console.log(this.storeService.tasks());
         this.showSuccess('Task Updated');
       },
       error: () => {
@@ -66,6 +69,7 @@ export class TaskCardComponent {
     this.loading.set(true);
     this.taskService.deleteTask(this.task._id).subscribe({
       complete: () => {
+        this.storeService.initializeTask(this.storeService.tasks().filter(t => t._id === this.task._id));
         this.showSuccess('Task Deleted')
       },
       error: () => {

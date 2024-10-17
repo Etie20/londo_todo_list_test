@@ -26,6 +26,7 @@ import {HlmErrorDirective, HlmFormFieldComponent} from "../../libs/ui/ui-formfie
 import {Task} from "../../../core/models/Task";
 import {TokenService} from "../../../services/token/token.service";
 import {MessageService} from "primeng/api";
+import {StoreService} from "../../../services/store/store.service";
 
 @Component({
   selector: 'app-todo-sheet',
@@ -62,7 +63,8 @@ export class TodoSheetComponent implements OnInit{
               private fb: FormBuilder,
               private taskService: TaskService,
               private tokenService: TokenService,
-              private messageService: MessageService
+              private messageService: MessageService,
+              private storeService: StoreService
               ) {
   }
 
@@ -90,6 +92,7 @@ export class TodoSheetComponent implements OnInit{
       if (this.task === undefined) {
         this.taskService.createTask(createTaskRequest).subscribe({
           complete: () => {
+            this.storeService.initializeTask([...this.storeService.tasks(), this.task]);
             this.showSuccess('Task Created')
           },
           error: () => {
@@ -99,7 +102,8 @@ export class TodoSheetComponent implements OnInit{
         })
       } else {
         this.taskService.updateTask(this.task._id, createTaskRequest).subscribe({
-          complete: () => {
+          next: (data) => {
+            this.storeService.initializeTask(this.storeService.tasks().map(t => t._id === this.task._id ? data.data : t));
             this.showSuccess('Task Updated')
           },
           error: () => {

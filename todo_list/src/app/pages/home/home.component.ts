@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, computed, OnInit, Signal, ViewEncapsulation} from '@angular/core';
 import {HlmIconComponent} from "../../shared/libs/ui/ui-icon-helm/src";
 import {provideIcons} from "@ng-icons/core";
 import {lucideSearch, lucideTornado} from "@ng-icons/lucide";
@@ -19,6 +19,7 @@ import {HlmButtonDirective} from "../../shared/libs/ui/ui-button-helm/src";
 import {CategoryService} from "../../services/category/category.service";
 import {Base} from "../../core/models/Base";
 import {ToastModule} from "primeng/toast";
+import {StoreService} from "../../services/store/store.service";
 
 @Component({
   selector: 'app-home',
@@ -44,13 +45,11 @@ import {ToastModule} from "primeng/toast";
 })
 export class HomeComponent implements OnInit{
   categoryForm!: FormGroup;
-  filteredTodoTasks: Task[] = [];
-  filteredDoneTasks: Task[] = [];
-  todo: Task[] = [];
-  done: Task[] = [];
+  filteredTodoTasks: Signal<Task[]> = computed(() => this.storeService.tasks().filter(data => data.state.name === 'TODO'));
+  filteredDoneTasks: Signal<Task[]> = computed(() => this.storeService.tasks().filter(data => data.state.name === 'DONE'));
   categories!: Base[];
 
-  constructor(private fb: FormBuilder, private taskService: TaskService, private categoryService: CategoryService) {
+  constructor(private fb: FormBuilder, private taskService: TaskService, private categoryService: CategoryService, private storeService: StoreService) {
   }
 
   ngOnInit(): void {
@@ -59,10 +58,7 @@ export class HomeComponent implements OnInit{
       this.categories.push({_id:"NONE", name:"NONE", __v:0});
     });
     this.taskService.findAllTasks().subscribe(data => {
-      this.todo = data.data.filter(data => data.state.name === 'TODO');
-      this.filteredTodoTasks = this.todo;
-      this.done = data.data.filter(data => data.state.name === 'DONE');
-      this.filteredDoneTasks = this.done;
+      this.storeService.initializeTask(data.data);
     });
     this.categoryForm = this.fb.group({
       category: ['NONE']
@@ -72,24 +68,17 @@ export class HomeComponent implements OnInit{
   search(event: any) {
     const searchTerm: string = event.target.value;
     if (searchTerm.trim() !== ''){
-      this.filteredTodoTasks = this.todo.filter(value => value.name.toLowerCase().includes(searchTerm.trim().toLowerCase()));
-      this.filteredDoneTasks = this.done.filter(value => value.name.toLowerCase().includes(searchTerm.trim().toLowerCase()));
+      this.storeService.setTasks(this.storeService.tasks().filter(data => data.name.toLowerCase().includes(searchTerm)));
     }else{
-      this.taskService.findAllTasks().subscribe(data => {
-        this.filteredTodoTasks = this.todo;
-        this.filteredDoneTasks = this.done;
-      });
+      this.storeService.resetTask();
     }
   }
 
   filterByCategory(){
-    console.log(this.categoryForm.value['category']);
     if (this.categoryForm.value['category'] === 'NONE'){
-      this.filteredTodoTasks = this.todo;
-      this.filteredDoneTasks = this.done;
+      this.storeService.resetTask();
     } else {
-      this.filteredTodoTasks = this.todo.filter(value => value.category.name === this.categoryForm.value['category']);
-      this.filteredDoneTasks = this.done.filter(value => value.category.name === this.categoryForm.value['category']);
+      this.storeService.setTasks(this.storeService.tasks().filter(value => value.category.name === this.categoryForm.value['category']));
     }
   }
 }
