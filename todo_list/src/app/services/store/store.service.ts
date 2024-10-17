@@ -26,27 +26,11 @@ export class StoreService {
     this._store.update((s) => ({ ...s, tasks: task }));
   }
 
-  addTask(task: Task) {
-    this._store.update((s) => ({
-      ...s,
-      tasks: [...s.tasks, task],
-      defaultTasks: [...s.defaultTasks, task]
-    }));
-  }
-
   updateTask(task: Task) {
     this._store.update((s) => ({
       ...s,
       tasks: s.tasks.map((t) => t),
       defaultTasks: s.defaultTasks.map((t) => (t._id === task._id ? task : t)),
-    }));
-  }
-
-  removeTask(task: Task) {
-    this._store.update((s) => ({
-      ...s,
-      tasks: s.tasks.filter((t) => t._id !== task._id),
-      defaultTasks: s.defaultTasks.filter((t) => t._id !== task._id),
     }));
   }
 

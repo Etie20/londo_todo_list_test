@@ -1,6 +1,6 @@
 <div class="px-3 py-4 text-xs bg-popover w-72 rounded-sm h-full">
   <div class="flex items-center pb-5 gap-2">
-    <p class="font-semibold ">{{ title }} {{ tasks.length }}</p>
+    <p class="font-semibold ">{{ title }} {{ tasks().length }}</p>
     @if(state === 'DONE') {
       <hlm-icon name="lucideCheck" size="sm" class="text-green-800"/>
     }
