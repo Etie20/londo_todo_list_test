@@ -1,7 +1,7 @@
 import { Component, ElementRef, Renderer2, computed, effect, inject, input, signal } from '@angular/core';
 import { lucideX } from '@ng-icons/lucide';
 import { hlm, injectExposedSideProvider, injectExposesStateProvider } from '@spartan-ng/ui-core';
-import { HlmIconComponent, provideIcons } from '@spartan-ng/ui-icon-helm';
+import { HlmIconComponent, provideIcons } from '../../../ui-icon-helm/src';
 import { BrnSheetCloseDirective } from '@spartan-ng/ui-sheet-brain';
 import { cva } from 'class-variance-authority';
 import type { ClassValue } from 'clsx';

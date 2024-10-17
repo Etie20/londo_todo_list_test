@@ -3,7 +3,7 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 
-import { HlmInputDirective } from '@spartan-ng/ui-input-helm';
+import { HlmInputDirective } from '../../../ui-input-helm/src';
 
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@spartan-ng/ui-forms-brain';
 import { HlmErrorDirective } from './hlm-error.directive';
