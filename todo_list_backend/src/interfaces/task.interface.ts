@@ -5,5 +5,7 @@ export interface Task {
     name: string,
     description: string,
     state: Base,
-    category: Base
+    category: Base,
+    created_at: Date,
+    updated_at: Date
 }

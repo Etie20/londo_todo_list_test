@@ -3,8 +3,18 @@
   <div class="flex items-center gap-5">
 <!--    <hlm-icon size="base" name="lucideSiren" class="text-red-500"/>-->
 <!--    <hlm-icon size="base" name="lucideSettings" />-->
-    <hlm-avatar>
-      <span class='text-white bg-primary' hlmAvatarFallback>{{user.email.substring(0, 2).toUpperCase()}}</span>
-    </hlm-avatar>
+    <hlm-tooltip>
+      <hlm-avatar hlmTooltipTrigger>
+        <span class='text-white bg-primary' hlmAvatarFallback>{{user.email.substring(0, 2).toUpperCase()}}</span>
+      </hlm-avatar>
+      <span *brnTooltipContent>
+        <div class="flex flex-col">
+          <button hlmBtn variant="destructive" class="flex gap-2" (click)="logout()">
+            Logout
+            <hlm-icon size="sm" class="mr-2" name="lucideLogOut" />
+          </button>
+        </div>
+      </span>
+    </hlm-tooltip>
   </div>
 </div>

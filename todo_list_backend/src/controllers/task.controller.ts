@@ -25,6 +25,8 @@ class TaskController {
     public createTask = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const createTaskData: Task = await this.taskService.createTask(req.body);
+            createTaskData.created_at = new Date(Date.now());
+            createTaskData.updated_at = new Date(Date.now());
             res.status(200).json({ data: createTaskData, message: "create" });
         } catch (error) {
             next(error);
@@ -43,6 +45,7 @@ class TaskController {
     public updateTask = async (req: Request, res: Response, next: NextFunction) => {
         try {
             const updateTaskData: Task = await this.taskService.updateTask(req.params.id, req.body);
+            updateTaskData.updated_at = new Date(Date.now());
             res.status(200).json({ data: updateTaskData, message: "update"});
         } catch (error) {
             next(error);

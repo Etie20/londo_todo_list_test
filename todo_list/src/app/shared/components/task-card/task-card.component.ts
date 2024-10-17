@@ -12,13 +12,14 @@ import {HlmButtonDirective} from "../../libs/ui/ui-button-helm/src";
 import {CreateTaskRequest} from "../../../core/dtos/request/CreateTaskRequest";
 import {TokenService} from "../../../services/token/token.service";
 import {findStateInverse} from "../../../core/utils/utils";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-task-card',
   templateUrl: './task-card.component.html',
   styleUrl: './task-card.component.css',
   standalone: true,
-  imports: [CdkDrag, NgClass, HlmBadgeDirective, HlmIconComponent, TodoSheetComponent, BrnSheetImports, HlmSheetComponent, HlmButtonDirective]
+  imports: [CdkDrag, NgClass, HlmBadgeDirective, HlmIconComponent, TodoSheetComponent, BrnSheetImports, HlmSheetComponent, HlmButtonDirective],
 })
 export class TaskCardComponent {
   @Input() task!: Task;
@@ -26,7 +27,7 @@ export class TaskCardComponent {
   isPopup = signal(false);
   loading = signal(false);
 
-  constructor(private taskService: TaskService, private tokenService: TokenService) {}
+  constructor(private taskService: TaskService, private tokenService: TokenService, private messageService: MessageService) {}
 
 
   drop(event: CdkDragDrop<Task>) {
@@ -48,6 +49,10 @@ export class TaskCardComponent {
 
     this.taskService.updateTask(this.task._id, updateTaskRequest).subscribe({
       complete: () => {
+        this.showSuccess('Task Updated');
+      },
+      error: () => {
+        this.showError('An error occurred')
       }
     });
   }
@@ -61,11 +66,20 @@ export class TaskCardComponent {
     this.loading.set(true);
     this.taskService.deleteTask(this.task._id).subscribe({
       complete: () => {
-        location.reload();
+        this.showSuccess('Task Deleted')
       },
       error: () => {
+        this.showError('An error occurred')
         this.loading.set(false);
       }
     });
+  }
+
+  showSuccess(message: string) {
+      this.messageService.add({severity:'success', summary: 'Success', detail: message});
+  }
+
+  showError(message: string) {
+    this.messageService.add({severity:'error', summary: 'Error', detail: message});
   }
 }

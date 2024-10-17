@@ -7,6 +7,8 @@ import {AuthRequest} from "../../../core/dtos/request/AuthRequest";
 import {AuthService} from "../../../services/auth/auth.service";
 import {Router} from "@angular/router";
 import {TokenService} from "../../../services/token/token.service";
+import {MessageService} from "primeng/api";
+import {ToastModule} from "primeng/toast";
 
 @Component({
   selector: 'app-login',
@@ -16,6 +18,7 @@ import {TokenService} from "../../../services/token/token.service";
     HlmInputDirective,
     HlmSpinnerComponent,
     ReactiveFormsModule,
+    ToastModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
@@ -28,7 +31,8 @@ export class LoginComponent {
   constructor(private fb: FormBuilder,
               private authService: AuthService,
               private router: Router,
-              private tokenService: TokenService
+              private tokenService: TokenService,
+              private messageService: MessageService
               ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.email, Validators.required]],
@@ -50,8 +54,13 @@ export class LoginComponent {
         },
         error: () => {
           this.loading.set(false)
+          this.showError('Invalid Credentials/An error occurred')
         }
       })
     }
+  }
+
+  showError(message: string) {
+    this.messageService.add({severity:'error', summary: 'Error', detail: message});
   }
 }
