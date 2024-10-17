@@ -13,8 +13,8 @@ class TaskService {
 
     public async createTask(taskData: CreateTaskDto): Promise<Task> {
         if (isEmpty(taskData)) throw new HttpException(400, "taskData is empty");
-
-        return this.task.create({...taskData});
+        const newTask: Task = await this.task.create({...taskData});
+        return this.task.findById(newTask._id).populate('state').populate('category').populate('user');
     }
 
     public async updateTask(taskId: string, taskData: CreateTaskDto): Promise<Task> {
