@@ -1,4 +1,4 @@
-import {IsString,IsDate} from "class-validator";
+import {IsString} from "class-validator";
 export class CreateTaskDto {
     //@ts-ignore
     @IsString()
@@ -13,7 +13,7 @@ export class CreateTaskDto {
     @IsString()
     public category: string;
 
-    @IsDate()
+    @IsString()
     public created_at: Date;
 
     @IsString()
