@@ -6,23 +6,23 @@ import {
   HlmSheetFooterComponent,
   HlmSheetHeaderComponent,
   HlmSheetTitleDirective
-} from "@spartan-ng/ui-sheet-helm";
+} from "../../libs/ui/ui-sheet-helm/src";
 
 import {provideIcons} from "@ng-icons/core";
 import {lucideCross} from "@ng-icons/lucide";
 import {HlmButtonDirective} from "../../libs/ui/ui-button-helm/src";
 import {HlmInputDirective} from "../../libs/ui/ui-input-helm/src";
-import {HlmIconComponent} from "@spartan-ng/ui-icon-helm";
+import {HlmIconComponent} from "../../libs/ui/ui-icon-helm/src";
 import {BrnSheetContentDirective, BrnSheetTriggerDirective} from "@spartan-ng/ui-sheet-brain";
 import {BrnSelectImports} from "@spartan-ng/ui-select-brain";
-import {HlmSelectImports} from "@spartan-ng/ui-select-helm";
+import {HlmSelectImports} from "../../libs/ui/ui-select-helm/src";
 import {CategoryService} from "../../../services/category/category.service";
 import {Base} from "../../../core/models/Base";
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {stateDefaultId} from "../../../constants/constants";
 import {TaskService} from "../../../services/task/task.service";
 import {CreateTaskRequest} from "../../../core/dtos/request/CreateTaskRequest";
-import {HlmErrorDirective, HlmFormFieldComponent} from "@spartan-ng/ui-formfield-helm";
+import {HlmErrorDirective, HlmFormFieldComponent} from "../../libs/ui/ui-formfield-helm/src";
 import {Task} from "../../../core/models/Task";
 import {TokenService} from "../../../services/token/token.service";
 
@@ -96,7 +96,7 @@ export class TodoSheetComponent implements OnInit{
         })
       } else {
         this.taskService.updateTask(this.task._id, createTaskRequest).subscribe({
-          next: (data) => {
+          complete: () => {
             location.reload();
           },
           error: () => {

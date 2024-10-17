@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {HlmIconComponent} from "@spartan-ng/ui-icon-helm";
+import {HlmIconComponent} from "../../libs/ui/ui-icon-helm/src";
 import {provideIcons} from "@ng-icons/core";
 import {lucideNotebook, lucideTimer} from "@ng-icons/lucide";
 import {HlmButtonDirective} from "../../libs/ui/ui-button-helm/src";

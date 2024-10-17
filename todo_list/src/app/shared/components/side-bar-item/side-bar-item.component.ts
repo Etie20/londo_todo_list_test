@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, signal} from '@angular/core';
 import {HlmButtonDirective} from "../../libs/ui/ui-button-helm/src";
-import {HlmIconComponent} from "@spartan-ng/ui-icon-helm";
+import {HlmIconComponent} from "../../libs/ui/ui-icon-helm/src";
 import {Router} from "@angular/router";
 import {NavItem} from "../../../core/utils/interfaces/NavItem";
 import {NgClass} from "@angular/common";

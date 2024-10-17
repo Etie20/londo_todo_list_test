@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import {LogoComponent} from "../logo/logo.component";
-import {HlmIconComponent} from "@spartan-ng/ui-icon-helm";
+import {HlmIconComponent} from "../../libs/ui/ui-icon-helm/src";
 import {provideIcons} from "@ng-icons/core";
 import {lucideSiren} from "@ng-icons/lucide";
 import {TokenService} from "../../../services/token/token.service";
 import {User} from "../../../core/models/User";
-import {HlmAvatarComponent, HlmAvatarFallbackDirective} from "@spartan-ng/ui-avatar-helm";
+import {HlmAvatarComponent, HlmAvatarFallbackDirective} from "../../libs/ui/ui-avatar-helm/src";
 
 @Component({
   selector: 'app-top-bar',

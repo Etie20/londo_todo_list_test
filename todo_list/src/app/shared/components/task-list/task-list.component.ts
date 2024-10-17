@@ -1,12 +1,12 @@
 import {Component, Input} from '@angular/core';
 import {CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {TaskCardComponent} from "../task-card/task-card.component";
-import {HlmIconComponent, provideIcons} from "@spartan-ng/ui-icon-helm";
+import {HlmIconComponent, provideIcons} from "../../libs/ui/ui-icon-helm/src";
 import {lucideCheck, lucidePlus} from "@ng-icons/lucide";
 import { Task } from '../../../core/models/Task';
 import {
   HlmSheetComponent,
-} from "@spartan-ng/ui-sheet-helm";
+} from "../../libs/ui/ui-sheet-helm/src";
 import { BrnSheetTriggerDirective} from "@spartan-ng/ui-sheet-brain";
 import {TodoSheetComponent} from "../todo-sheet/todo-sheet.component";
 

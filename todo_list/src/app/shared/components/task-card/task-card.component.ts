@@ -1,12 +1,12 @@
-import {Component, EventEmitter, Input, Output, signal} from '@angular/core';
+import {Component, Input, signal} from '@angular/core';
 import {CdkDrag, CdkDragDrop} from '@angular/cdk/drag-drop';
 import {NgClass} from "@angular/common";
-import {HlmBadgeDirective} from "@spartan-ng/ui-badge-helm";
-import {HlmIconComponent} from "@spartan-ng/ui-icon-helm";
+import {HlmBadgeDirective} from "../../libs/ui/ui-badge-helm/src";
+import {HlmIconComponent} from "../../libs/ui/ui-icon-helm/src";
 import { Task } from '../../../core/models/Task';
 import {TodoSheetComponent} from "../todo-sheet/todo-sheet.component";
 import {BrnSheetImports} from "@spartan-ng/ui-sheet-brain";
-import {HlmSheetComponent} from "@spartan-ng/ui-sheet-helm";
+import {HlmSheetComponent} from "../../libs/ui/ui-sheet-helm/src";
 import {TaskService} from "../../../services/task/task.service";
 import {HlmButtonDirective} from "../../libs/ui/ui-button-helm/src";
 import {CreateTaskRequest} from "../../../core/dtos/request/CreateTaskRequest";
