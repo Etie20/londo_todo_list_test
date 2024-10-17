@@ -25,6 +25,7 @@ import {CreateTaskRequest} from "../../../core/dtos/request/CreateTaskRequest";
 import {HlmErrorDirective, HlmFormFieldComponent} from "../../libs/ui/ui-formfield-helm/src";
 import {Task} from "../../../core/models/Task";
 import {TokenService} from "../../../services/token/token.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-todo-sheet',
@@ -60,7 +61,8 @@ export class TodoSheetComponent implements OnInit{
   constructor(private categoryService: CategoryService,
               private fb: FormBuilder,
               private taskService: TaskService,
-              private tokenService: TokenService
+              private tokenService: TokenService,
+              private messageService: MessageService
               ) {
   }
 
@@ -88,22 +90,30 @@ export class TodoSheetComponent implements OnInit{
       if (this.task === undefined) {
         this.taskService.createTask(createTaskRequest).subscribe({
           complete: () => {
-            location.reload();
+            this.showSuccess('Task Created')
           },
           error: () => {
             this.loading.set(false);
+            this.showError('An error occurred')
           }
         })
       } else {
         this.taskService.updateTask(this.task._id, createTaskRequest).subscribe({
           complete: () => {
-            location.reload();
+            this.showSuccess('Task Updated')
           },
           error: () => {
             this.loading.set(false);
+            this.showError('An error occurred')
           }
         })
       }
     }
+  }
+  showError(message: string) {
+    this.messageService.add({severity:'error', summary: 'Error', detail: message});
+  }
+  showSuccess(message: string) {
+    this.messageService.add({severity:'success', summary: 'Success', detail: message});
   }
 }

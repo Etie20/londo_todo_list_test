@@ -50,6 +50,9 @@ export class TaskCardComponent {
     this.taskService.updateTask(this.task._id, updateTaskRequest).subscribe({
       complete: () => {
         this.showSuccess('Task Updated');
+      },
+      error: () => {
+        this.showError('An error occurred')
       }
     });
   }
@@ -66,13 +69,17 @@ export class TaskCardComponent {
         this.showSuccess('Task Deleted')
       },
       error: () => {
+        this.showError('An error occurred')
         this.loading.set(false);
       }
     });
   }
 
-  //make showSuccess function knowing i use primeng
   showSuccess(message: string) {
       this.messageService.add({severity:'success', summary: 'Success', detail: message});
+  }
+
+  showError(message: string) {
+    this.messageService.add({severity:'error', summary: 'Error', detail: message});
   }
 }
