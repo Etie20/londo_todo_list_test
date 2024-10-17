@@ -13,14 +13,18 @@ import {
 import {AuthInterceptor} from "./core/helpers/auth.interceptor";
 import {provideCacheableAnimationLoader, provideLottieOptions} from "ngx-lottie";
 import player from 'lottie-web';
+import {provideAnimationsAsync} from "@angular/platform-browser/animations/async";
+import {MessageService} from "primeng/api";
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideLottieOptions({ player: () => player }),
     provideCacheableAnimationLoader(),
+    provideAnimationsAsync(),
     provideRouter(routes),
     provideClientHydration(),
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    [MessageService]
   ]
 };

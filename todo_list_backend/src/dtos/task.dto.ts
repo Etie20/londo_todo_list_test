@@ -14,8 +14,5 @@ export class CreateTaskDto {
     public category: string;
 
     @IsString()
-    public created_at: Date;
-
-    @IsString()
     public user: string;
 }

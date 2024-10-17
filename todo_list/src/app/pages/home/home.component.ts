@@ -18,6 +18,7 @@ import {TaskService} from "../../services/task/task.service";
 import {HlmButtonDirective} from "../../shared/libs/ui/ui-button-helm/src";
 import {CategoryService} from "../../services/category/category.service";
 import {Base} from "../../core/models/Base";
+import {ToastModule} from "primeng/toast";
 
 @Component({
   selector: 'app-home',
@@ -34,6 +35,7 @@ import {Base} from "../../core/models/Base";
     TaskCardComponent,
     TaskListComponent,
     HlmButtonDirective,
+    ToastModule,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
