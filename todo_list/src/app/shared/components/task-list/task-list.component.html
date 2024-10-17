@@ -7,10 +7,10 @@
   </div>
   <div
     cdkDropList
-    [cdkDropListData]="tasks"
+    [cdkDropListData]="tasks()"
     (cdkDropListDropped)="drop($event)"
     class="h-[21rem] overflow-y-scroll no-scrollbar flex flex-col gap-1">
-    @for (task of tasks; track task){
+    @for (task of tasks(); track task){
       <app-task-card [task]="task" [state]="state"/>
     }
     @if (state === 'TODO') {
