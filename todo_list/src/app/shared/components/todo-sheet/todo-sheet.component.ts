@@ -27,6 +27,7 @@ import {Task} from "../../../core/models/Task";
 import {TokenService} from "../../../services/token/token.service";
 import {MessageService} from "primeng/api";
 import {StoreService} from "../../../services/store/store.service";
+import {HlmLabelDirective} from "../../libs/ui/ui-label-helm/src";
 
 @Component({
   selector: 'app-todo-sheet',
@@ -48,6 +49,7 @@ import {StoreService} from "../../../services/store/store.service";
     ReactiveFormsModule,
     HlmFormFieldComponent,
     HlmErrorDirective,
+    HlmLabelDirective,
   ],
   templateUrl: './todo-sheet.component.html',
   styleUrl: './todo-sheet.component.css',
